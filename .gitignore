@@ -69,3 +69,5 @@ logs/
 # Mac
 .DS_Store
 
+# gitignore
+.gitignore
