@@ -35,15 +35,15 @@ spring:
   cloud:
 #    # gateway 网关配置
     gateway:
-      routes:
-        #配置路由： 路由id,路由到微服务的uri,断言（判断条件）
-        - id: ZHC-SYSTEM-SERVICE #保持唯一
-          uri: http://127.0.0.1:7002 #目标为服务地址
-#      discovery:
-#        locator:
-#          #使用服务发现路由
-#          enabled: true
-#          lower-case-service-id: true
+#      routes:
+#        #配置路由： 路由id,路由到微服务的uri,断言（判断条件）
+#        - id: ZHC-SYSTEM-SERVICE #保持唯一
+#          uri: http://127.0.0.1:7002 #目标为服务地址
+      discovery:
+        locator:
+          #使用服务发现路由
+          enabled: true
+          lower-case-service-id: true
     nacos:
       # nacos discovery 配置
       discovery:

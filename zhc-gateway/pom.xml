@@ -34,11 +34,11 @@
         </dependency>
 
 <!--        discovery-->
-<!--        <dependency>-->
-<!--            <groupId>com.zhc.cloud</groupId>-->
-<!--            <artifactId>zhc-discovery-gateway-spring-cloud-starter</artifactId>-->
-<!--            <version>0.0.1-SNAPSHOT</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.zhc.cloud</groupId>
+            <artifactId>zhc-discovery-gateway-spring-cloud-starter</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
 <!--        sentinel-->
 
@@ -78,7 +78,7 @@
     </profiles>
 
     <build>
-        <finalName>zhc-system</finalName>
+        <finalName>zhc-gateway</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -97,7 +97,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.zhc.cloud.start.ZhcSystemStartApplication</mainClass>
+                    <mainClass>com.zhc.cloud.gateway.GatewayApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
@@ -121,14 +121,12 @@
                 <directory>${basedir}/src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <include>mapper/*.xml</include>
                     <!--                    <include>*/*-${env}.xml</include>-->
                     <include>bootstrap.yml</include>
-                    <include>zhc-system.yml</include>
                     <!--                    <include>application.properties</include>-->
-                    <!--                    <include>application-${env}.yml</include>-->
-                    <!--                    <include>application-${env}.yaml</include>-->
-                    <!--                    <include>application-${env}.properties</include>-->
+                                        <include>application-${env}.yml</include>
+                                        <include>application-${env}.yaml</include>
+                                        <include>application-${env}.properties</include>
                 </includes>
             </resource>
         </resources>
