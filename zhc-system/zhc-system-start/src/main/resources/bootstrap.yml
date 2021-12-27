@@ -26,5 +26,3 @@ spring:
 #        override-none: true
 #        allow-override: true
 #        override-system-properties: false
-user:
-  name: 1

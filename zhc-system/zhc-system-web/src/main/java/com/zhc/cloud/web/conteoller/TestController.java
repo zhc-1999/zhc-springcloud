@@ -2,6 +2,7 @@ package com.zhc.cloud.web.conteoller;
 
 import com.zhc.cloud.service.TestDataService;
 import com.zhc.cloud.service.TestService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -15,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RefreshScope
+@Slf4j
 public class TestController {
 
-    @Value("${user.name}")
-    private String name;
+
     @Autowired
     private TestService testService;
     @Autowired
@@ -26,10 +27,12 @@ public class TestController {
 
     @GetMapping("test")
     public String test(){
+        log.info("test");
         return testService.test();
     }
-    @GetMapping("/")
+    @GetMapping("/test1")
     public String test1(){
-        return testDataService.select().toString()+name;
+        log.info("test1");
+        return testDataService.select().toString();
     }
 }

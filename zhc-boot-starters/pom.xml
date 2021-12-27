@@ -17,6 +17,7 @@
         <module>zhc-nacos-spring-cloud-starter</module>
         <module>zhc-discovery-gateway-spring-cloud-starter</module>
         <module>zhc-sentinel-gateway-spring-cloud-starter</module>
+        <module>zhc-discovery-service-spring-cloud-starter</module>
     </modules>
 
     <properties>

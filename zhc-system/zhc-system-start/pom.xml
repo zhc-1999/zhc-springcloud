@@ -26,6 +26,19 @@
             <artifactId>zhc-nacos-spring-cloud-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <!--        discovery-->
+        <dependency>
+            <groupId>com.zhc.cloud</groupId>
+            <artifactId>zhc-discovery-service-spring-cloud-starter</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <!--        sentinel-->
+        <dependency>
+            <groupId>com.zhc.cloud</groupId>
+            <artifactId>zhc-sentinel-service-spring-cloud-starter</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -36,6 +49,7 @@
             <artifactId>zhc-system-web</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
     </dependencies>
 
     <profiles>
