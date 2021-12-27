@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>springcloudDemo</artifactId>
+        <artifactId>springcloud</artifactId>
         <groupId>com.zhc.cloud</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
@@ -17,6 +17,7 @@
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>com.zhc.cloud</groupId>
             <artifactId>zhc-common</artifactId>
@@ -33,11 +34,11 @@
         </dependency>
 
 <!--        discovery-->
-<!--        <dependency>-->
-<!--            <groupId>com.zhc.cloud</groupId>-->
-<!--            <artifactId>zhc-discovery-gateway-spring-cloud-starter</artifactId>-->
-<!--            <version>0.0.1-SNAPSHOT</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.zhc.cloud</groupId>
+            <artifactId>zhc-discovery-gateway-spring-cloud-starter</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
 <!--        sentinel-->
 
