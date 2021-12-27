@@ -11,18 +11,14 @@
 
     <artifactId>zhc-system</artifactId>
     <packaging>pom</packaging>
+
     <modules>
         <module>zhc-system-api</module>
         <module>zhc-system-web</module>
         <module>zhc-system-service</module>
         <module>zhc-system-domain</module>
-        <module>zhc-system-common</module>
         <module>zhc-system-start</module>
     </modules>
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
 
 </project>

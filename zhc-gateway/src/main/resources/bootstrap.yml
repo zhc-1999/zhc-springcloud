@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: zhc-gateway
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      # nacos config 配置
+      config:
+#        enabled: false
+        server-addr: 127.0.0.1:8848
+        namespace: zhc
+        username: nacos
+        password: nacos
+        max-retry: 5
+        config-long-poll-timeout: 46000
+        config-retry-time: 2000
+        enable-remote-sync-config: true
+        # 主配置 data-id
+        name: zhc-gateway
+        # 主配置 group-id
+        group: ZHC_GROUP
+        # 主配置 配置文件类型
+        fileExtension: yaml
+        # nacos默认远程优先，需要使用本地配置优先可以开启下边三条配置
+#        override-none: true
+#        allow-override: true
+#        override-system-properties: false

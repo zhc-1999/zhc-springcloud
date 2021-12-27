@@ -18,9 +18,19 @@
     <dependencies>
         <dependency>
             <groupId>com.zhc.cloud</groupId>
-            <artifactId>zhc-system-common</artifactId>
+            <artifactId>zhc-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.zhc.cloud</groupId>
+            <artifactId>zhc-mybatis-plus-starter</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

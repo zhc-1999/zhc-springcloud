@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>springcloudDemo</artifactId>
+        <groupId>com.zhc.cloud</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>zhc-boot-starters</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>zhc-spring-boot-starter</module>
+        <module>zhc-mybatis-plus-starter</module>
+        <module>zhc-nacos-spring-boot-starter</module>
+        <module>zhc-nacos-spring-cloud-starter</module>
+        <module>zhc-discovery-gateway-spring-cloud-starter</module>
+        <module>zhc-sentinel-gateway-spring-cloud-starter</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.cloud.alibaba.version>2.1.4.RELEASE</spring.cloud.alibaba.version>
+        <spring.cloud.version>Greenwich.SR6</spring.cloud.version>
+        <spring.boot.version>2.0.5.RELEASE</spring.boot.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.zhc.cloud</groupId>
+                <artifactId>zhc-common</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

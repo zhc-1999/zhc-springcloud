@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>zhc-system</artifactId>
+        <artifactId>zhc-boot-starters</artifactId>
         <groupId>com.zhc.cloud</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>zhc-system-web</artifactId>
+    <artifactId>zhc-mybatis-plus-starter</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -17,14 +17,17 @@
     </properties>
 
     <dependencies>
+        <!--mybatis-plus的springboot支持-->
         <dependency>
-            <groupId>com.zhc.cloud</groupId>
-            <artifactId>zhc-system-service</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.4.3.1</version>
         </dependency>
+        <!--mysql驱动-->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-context</artifactId>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.42</version>
         </dependency>
     </dependencies>
 </project>

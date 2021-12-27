@@ -1,0 +1,52 @@
+server:
+  port: 7001
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 20MB # 限制文件上传的大小
+      max-request-size: 20MB # 限制请求大小
+
+  application:
+    name: zhc-system
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  cloud:
+    nacos:
+      # nacos discovery 配置
+      discovery:
+        enabled: true
+        group: ZHC_GROUP
+        metadata:
+          env: env1
+          group: ZHC_GROUP
+          region: dev
+          version: 1.0
+          zone: zone1
+        namespace: zhc
+        password: nacos
+        register-enabled: true
+        server-addr: 127.0.0.1:8848
+        service: ZHC-SYSTEM-SERVICE
+        username: nacos
+
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    password: qwe123QWE!@#
+    url: jdbc:mysql://192.144.238.212:3306/zhc?useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai&sessionVariables=sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'
+    username: root
+
+
+mybatis-plus:
+  configuration:
+    cache-enabled: true
+  global-config:
+    db-config:
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      table-underline: true
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.zhc.cloud.domain.mapper.mysql

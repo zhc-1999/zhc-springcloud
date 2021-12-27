@@ -17,9 +17,10 @@
     </properties>
 
     <dependencies>
+<!--        依赖-->
         <dependency>
             <groupId>com.zhc.cloud</groupId>
-            <artifactId>zhc-system-common</artifactId>
+            <artifactId>zhc-spring-boot-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
