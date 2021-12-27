@@ -34,11 +34,11 @@
         </dependency>
 
 <!--        discovery-->
-        <dependency>
-            <groupId>com.zhc.cloud</groupId>
-            <artifactId>zhc-discovery-gateway-spring-cloud-starter</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.zhc.cloud</groupId>-->
+<!--            <artifactId>zhc-discovery-gateway-spring-cloud-starter</artifactId>-->
+<!--            <version>0.0.1-SNAPSHOT</version>-->
+<!--        </dependency>-->
 
 <!--        sentinel-->
 
