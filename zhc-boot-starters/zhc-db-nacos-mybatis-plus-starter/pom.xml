@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>zhc-mybatis-plus-starter</artifactId>
+    <artifactId>zhc-db-nacos-mybatis-plus-starter</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

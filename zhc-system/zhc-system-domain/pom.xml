@@ -23,7 +23,7 @@
         </dependency>
         <dependency>
             <groupId>com.zhc.cloud</groupId>
-            <artifactId>zhc-mybatis-plus-starter</artifactId>
+            <artifactId>zhc-db-nacos-mybatis-plus-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

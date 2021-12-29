@@ -12,7 +12,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>zhc-spring-boot-starter</module>
-        <module>zhc-mybatis-plus-starter</module>
+        <module>zhc-db-nacos-mybatis-plus-starter</module>
         <module>zhc-nacos-spring-boot-starter</module>
         <module>zhc-nacos-spring-cloud-starter</module>
         <module>zhc-discovery-gateway-spring-cloud-starter</module>
