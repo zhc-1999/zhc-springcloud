@@ -4,7 +4,7 @@
 spring Cloud项目搭建，无具体业务。
 
 ## 2. 项目总体架构图
-![](resources/Springcloud技术架构.jpg)
+![](resources/Springcloud技术架构.png)
 
 ## 3. 功能介绍
 * **分布式系统基础支撑**
