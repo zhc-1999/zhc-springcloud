@@ -20,6 +20,7 @@
         <module>zhc-discovery-service-spring-cloud-starter</module>
         <module>zhc-sentinel-service-spring-cloud-starter</module>
         <module>zhc-redis-nacos-spring-boot-starter</module>
+        <module>zhc-feign-spring-cloud-starter</module>
     </modules>
 
     <properties>

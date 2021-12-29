@@ -3,14 +3,31 @@ spring:
     multipart:
       max-file-size: 20MB # 限制文件上传的大小
       max-request-size: 20MB # 限制请求大小
-
+  # 应用名称
   application:
     name: zhc-system
-
+  #时间格式化
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
 
+    # Discovery 策略 灰度
+    strategy:
+      #当外界传值Header的时候，服务也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。如果下面开关为true，以服务设置为优先，否则以外界传值为优先。缺失则默认为true
+      service.header.priority: true
+      # 启动和关闭监控，一旦关闭，调用链和日志输出都将关闭。缺失则默认为false
+      monitor.enabled: true
+      # 启动和关闭日志输出。缺失则默认为false
+      logger.debug.enabled: true
+      # 启动和关闭Header传递的Debug日志打印，注意：每调用一次都会打印一次，会对性能有所影响，建议压测环境和生产环境关闭。缺失则默认为false
+      rest.intercept.debug.enabled: true
+      # 路由策略的时候，对REST方式调用拦截的时候（支持Feign、RestTemplate或者WebClient调用），希望把来自外部自定义的Header参数（用于业务系统自定义Header，例如：mobile）传递到服务里，那么配置如下值。如果多个用“;”分隔，不允许出现空格
+      business.request.headers: ID
+      # 版本故障转移，即无法找到相应版本的服务实例，路由到老的稳定版本的实例。其作用是防止蓝绿灰度版本发布人为设置错误，或者对应的版本实例发生灾难性的全部下线，导致流量有损
+      # 启动和关闭版本故障转移。缺失则默认为false
+      #version.failover.enabled: false
+
+  #nacos
   cloud:
     nacos:
       # nacos discovery 配置
@@ -29,14 +46,78 @@ spring:
         server-addr: 127.0.0.1:8848
         service: ZHC-SYSTEM-SERVICE
         username: nacos
-
+  #数据库链接
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     password: qwe123QWE!@#
     url: jdbc:mysql://127.0.0.1:3306/zhc?useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai
     username: root
+    #连接池的配置信息
+    ## 初始化大小，最小，最大
+    initial-size: 5
+    min-idle: 5
+    max-active: 20
+    ## 配置获取连接等待超时的时间
+    max-wait: 60000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    time-between-eviction-runs-millis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    min-evictable-idle-time-millis: 300000
+    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,log4j
 
+#feign配置
+feign:
+  client:
+    config:
+      default:
+        #feign客户端建立连接超时时间
+        connect-timeout: 2000
+        #feign客户端建立连接后读取资源超时时间
+        read-timeout: 10000
+  #开启Hystrix断路器
+  hystrix:
+    enabled: true
+#Hystrix配置
+hystrix:
+  command:
+    HystrixCommandKey:
+      execution:
+        isolation:
+          thread:
+            #在调用方配置，被该调用方的指定方法（HystrixCommandKey方法名）的超时时间是该值
+            timeoutInMilliseconds: 4000
+    default:
+      circuitBreaker:
+        #出错百分比阈值，当达到此阈值后，开始短路。默认50%
+        errorThresholdPercentage: 50%
+        # 简言之，10s内请求失败数量达到20个，断路器开。  当在配置时间窗口内达到此数量的失败后，进行短路。默认20个
+        requestVolumeThreshold: 20
+        #短路多久以后开始尝试是否恢复，默认5s
+        sleepWindowInMilliseconds: 5
+      execution:
+        isolation:
+          thread:
+            #配置Hystrix 超时时间   超时关闭
+            #hystrix.command.default.execution.timeout.enabled=false
+            #超时时间（默认1000ms）在调用方配置，被该调用方的所有方法的超时时间都是该值，优先级低于下边的指定配置
+            timeoutInMilliseconds: 3000
+      fallback:
+        isolation:
+          semaphore:
+            #调用线程允许请求HystrixCommand.GetFallback()的最大数量，默认10。超出时将会有异常抛出，
+            #注意：该项配置对于THREAD隔离模式也起作用
+            maxConcurrentRequests: 50000
+  threadpool:
+    default:
+      #线程池核心线程数 默认为10
+      coreSize: 10
+      #最大排队长度。默认-1  如果要从-1换成其他值则需重启，即该值不能动态调整，若要动态调整，需要使用到下边这个配置
+      maxQueueSize: 100
+      #排队线程数量阈值，默认为5，达到时拒绝，如果配置了该选项，队列的大小是该队列
+      queueSizeRejectionThreshold: 5
 
+#mybits配置
 mybatis-plus:
   configuration:
     cache-enabled: true
@@ -46,4 +127,4 @@ mybatis-plus:
       logic-not-delete-value: 0
       table-underline: true
   mapper-locations: classpath*:/mapper/**/*.xml
-  type-aliases-package: com.zhc.cloud.domain.mapper.mysql
+  type-aliases-package: com.zhc.cloud.system.domain.mysql

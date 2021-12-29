@@ -96,7 +96,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.zhc.cloud.start.ZhcSystemStartApplication</mainClass>
+                    <mainClass>com.zhc.cloud.system.start.ZhcSystemStartApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
