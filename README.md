@@ -12,6 +12,7 @@ spring Cloud项目搭建，无具体业务。
     * 服务降级与熔断
     * nacos配置注册中心
     * 分布式锁
+
 ## 4. 模块说明
 ```lua
 springcloud -- 父项目，公共依赖
@@ -32,11 +33,12 @@ springcloud -- 父项目，公共依赖
 │  ├─zhc-boot-starters -- 封装的starter
 │  │  ├─zhc-spring-boot-starter -- springboot starter
 │  │  ├─zhc-db-nacos-mybatis-plus-starter -- 封装数据库通用操作逻辑（可用nacos动态修改数据库连接账号密码等）
-│  │  ├─zhc-nacos-spring-boot-starter
+│  │  ├─zhc-nacos-spring-boot-starter -- naocs springboot
 │  │  ├─zhc-nacos-spring-cloud-starter -- naocs springcloud
-│  │  ├─zhc-discovery-gateway-spring-cloud-starter -- 封装gatewa discovery
-│  │  ├─zhc-sentinel-gateway-spring-cloud-starter -- 封装gatewa sentinel
-│  │  ├─zhc-discovery-service-spring-cloud-starter -- 封装service discovery
-│  │  ├─zhc-sentinel-service-spring-cloud-starter -- 封装service sentinel
+│  │  ├─zhc-discovery-gateway-spring-cloud-starter -- 封装gatewa discovery （网关蓝绿灰度发布）
+│  │  ├─zhc-sentinel-gateway-spring-cloud-starter -- 封装gatewa sentinel （网关流量控制、熔断降级）
+│  │  ├─zhc-discovery-service-spring-cloud-starter -- 封装service discovery （服务蓝绿灰度发布）
+│  │  ├─zhc-sentinel-service-spring-cloud-starter -- 封装service sentinel（服务流量控制、熔断降级）
 │  │  ├─zhc-redis-nacos-spring-boot-starter -- 封装redis通用操作逻辑（可用nacos动态修改redis连接账号密码等）
+│  │  ├─zhc-feign-spring-cloud-starter -- 封装fegin通用操作逻辑
 ```
