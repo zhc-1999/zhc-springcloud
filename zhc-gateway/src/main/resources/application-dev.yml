@@ -1,4 +1,7 @@
+
 spring:
+  main:
+    allow-bean-definition-overriding: true
   profiles:
     active: dev
   application:
@@ -23,19 +26,15 @@ spring:
       # 路由策略的时候，对REST方式调用拦截的时候（支持Feign、RestTemplate或者WebClient调用），希望把来自外部自定义的Header参数（用于框架内置上下文Header，例如：trace-id, span-id等）传递到服务里，那么配置如下值。如果多个用“;”分隔，不允许出现空格
       context.request.headers: trace-id;span-id;
       # 路由策略的时候，对REST方式调用拦截的时候（支持Feign、RestTemplate或者WebClient调用），希望把来自外部自定义的Header参数（用于业务系统自定义Header，例如：mobile）传递到服务里，那么配置如下值。如果多个用“;”分隔，不允许出现空格
-      business.request.headers: id;
+      business.request.headers: ID;
       # 版本故障转移，即无法找到相应版本的服务实例，路由到老的稳定版本的实例。其作用是防止蓝绿灰度版本发布人为设置错误，或者对应的版本实例发生灾难性的全部下线，导致流量有损
       # 启动和关闭版本故障转移。缺失则默认为false
   #      version.failover.enabled: true
 
   # Cloud 配置
   cloud:
-#    # gateway 网关配置
+    # gateway 网关配置
     gateway:
-#      routes:
-#        #配置路由： 路由id,路由到微服务的uri,断言（判断条件）
-#        - id: ZHC-SYSTEM-SERVICE #保持唯一
-#          uri: http://127.0.0.1:7002 #目标为服务地址
       discovery:
         locator:
           #使用服务发现路由
@@ -58,3 +57,27 @@ spring:
         register-enabled: true
         server-addr: 127.0.0.1:8848
         service: ZHC-GATEWAY-SERVICE
+
+  redis:
+    cluster:
+      nodes: ''
+    database: 1
+    host: 192.168.171.178
+    password: ywjx
+    pool:
+      max-active: 64
+      max-idle: 16
+      max-total: 64
+      max-wait: 500
+      min-idle: 8
+    port: 6379
+    sentinel:
+      master: ''
+      nodes: ''
+redisson:
+  cluster:
+    addresses: ''
+  sentinel:
+    addresses: ''
+  single:
+    addresses: redis://192.168.171.178:6379

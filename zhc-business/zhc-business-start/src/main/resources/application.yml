@@ -5,7 +5,7 @@ spring:
       max-request-size: 20MB # 限制请求大小
 
   application:
-    name: zhc-system
+    name: zhc-business
 
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
@@ -27,27 +27,15 @@ spring:
         password: nacos
         register-enabled: true
         server-addr: 127.0.0.1:8848
-        service: ZHC-SYSTEM-SERVICE
+        service: ZHC-BUSINESS-SERVICE
         username: nacos
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/zhc?useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai
-    username: root
+    driverClassName: com.mysql.cj.jdbc.Driver
     password: qwe123QWE!@#
-    #连接池的配置信息
-    ## 初始化大小，最小，最大
-    initial-size: 5
-    min-idle: 5
-    max-active: 20
-    ## 配置获取连接等待超时的时间
-    max-wait: 60000
-    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
-    time-between-eviction-runs-millis: 60000
-    # 配置一个连接在池中最小生存的时间，单位是毫秒
-    min-evictable-idle-time-millis: 300000
-    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
-    filters: stat,wall,log4j
+    url: jdbc:mysql://127.0.0.1:3306/zhc?useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai&sessionVariables=sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'
+    username: root
+
 
 mybatis-plus:
   configuration:

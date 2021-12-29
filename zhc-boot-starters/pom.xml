@@ -19,6 +19,7 @@
         <module>zhc-sentinel-gateway-spring-cloud-starter</module>
         <module>zhc-discovery-service-spring-cloud-starter</module>
         <module>zhc-sentinel-service-spring-cloud-starter</module>
+        <module>zhc-redis-nacos-spring-boot-starter</module>
     </modules>
 
     <properties>
@@ -32,11 +33,13 @@
     </properties>
 
     <dependencies>
+<!--        自动装配配置-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
+<!--        实体类映射配置文件属性-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>

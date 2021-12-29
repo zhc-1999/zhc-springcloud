@@ -1,58 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>springcloud</artifactId>
+        <artifactId>zhc-business</artifactId>
         <groupId>com.zhc.cloud</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>zhc-gateway</artifactId>
+    <artifactId>zhc-business-start</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>zhc-business</name>
+    <packaging>jar</packaging>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <java.version>1.8</java.version>
     </properties>
-
     <dependencies>
-
         <dependency>
             <groupId>com.zhc.cloud</groupId>
-            <artifactId>zhc-common</artifactId>
+            <artifactId>zhc-spring-boot-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <!--gateway-->
         <dependency>
             <groupId>com.zhc.cloud</groupId>
             <artifactId>zhc-nacos-spring-cloud-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
-        </dependency>
-
-<!--        discovery-->
+        <!--        discovery-->
         <dependency>
             <groupId>com.zhc.cloud</groupId>
-            <artifactId>zhc-discovery-gateway-spring-cloud-starter</artifactId>
+            <artifactId>zhc-discovery-service-spring-cloud-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-<!--        sentinel-->
+        <!--        sentinel-->
         <dependency>
             <groupId>com.zhc.cloud</groupId>
-            <artifactId>zhc-sentinel-gateway-spring-cloud-starter</artifactId>
+            <artifactId>zhc-sentinel-service-spring-cloud-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.9</version>
+        </dependency>
+        <dependency>
             <groupId>com.zhc.cloud</groupId>
-            <artifactId>zhc-redis-spring-boot-starter</artifactId>
+            <artifactId>zhc-business-web</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-
 
     </dependencies>
 
@@ -81,7 +77,7 @@
     </profiles>
 
     <build>
-        <finalName>zhc-gateway</finalName>
+        <finalName>zhc-business</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -100,7 +96,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.zhc.cloud.gateway.GatewayApplication</mainClass>
+                    <mainClass>com.zhc.cloud.start.ZhcBusinessStartApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
@@ -124,14 +120,17 @@
                 <directory>${basedir}/src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <!--                    <include>*/*-${env}.xml</include>-->
+                    <include>mapper/*.xml</include>
+<!--                    <include>*/*-${env}.xml</include>-->
                     <include>bootstrap.yml</include>
-                    <!--                    <include>application.properties</include>-->
-                                        <include>application-${env}.yml</include>
-                                        <include>application-${env}.yaml</include>
-                                        <include>application-${env}.properties</include>
+                    <include>zhc-business.yml</include>
+<!--                    <include>application.properties</include>-->
+<!--                    <include>application-${env}.yml</include>-->
+<!--                    <include>application-${env}.yaml</include>-->
+<!--                    <include>application-${env}.properties</include>-->
                 </includes>
             </resource>
         </resources>
     </build>
+
 </project>

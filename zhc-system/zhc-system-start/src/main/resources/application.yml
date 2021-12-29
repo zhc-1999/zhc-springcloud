@@ -33,7 +33,7 @@ spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     password: qwe123QWE!@#
-    url: jdbc:mysql://127.0.0.1:3306/zhc?useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai&sessionVariables=sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'
+    url: jdbc:mysql://127.0.0.1:3306/zhc?useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai
     username: root
 
 
