@@ -49,7 +49,7 @@
 
         <dependency>
             <groupId>com.zhc.cloud</groupId>
-            <artifactId>zhc-redis-spring-boot-starter</artifactId>
+            <artifactId>zhc-redis-nacos-spring-boot-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
