@@ -8,13 +8,21 @@ spring:
       # nacos config 配置
       config:
 #        enabled: false
+#        nacos集群地址。注：多个IP可以通过“，”号隔离，例如192.168.80.1:8848,192.168.80.1:8848  填写域名时前缀不要加上http://
         server-addr: 127.0.0.1:8848
-        namespace: zhc
+        #命名空间ID
+        namespace: ZHC_GROUP
+        #账号
         username: nacos
+        #密码
         password: nacos
+        # 主配置 最大重试次数
         max-retry: 5
+        # 主配置 配置监听长轮询超时时间
         config-long-poll-timeout: 46000
+        # 主配置 重试时间
         config-retry-time: 2000
+        # 主配置 开启注册监听器预加载配置服务（除非特殊业务需求，否则不推荐打开该参数）
         enable-remote-sync-config: true
         # 主配置 data-id
         name: zhc-system

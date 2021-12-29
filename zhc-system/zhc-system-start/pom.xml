@@ -124,10 +124,12 @@
 <!--                    <include>*/*-${env}.xml</include>-->
                     <include>bootstrap.yml</include>
                     <include>zhc-system.yml</include>
-<!--                    <include>application.properties</include>-->
-<!--                    <include>application-${env}.yml</include>-->
-<!--                    <include>application-${env}.yaml</include>-->
-<!--                    <include>application-${env}.properties</include>-->
+                    <include>zhc-system.yaml</include>
+                    <include>zhc-system-${env}.yaml</include>
+                    <include>application.properties</include>
+                    <include>application-${env}.yml</include>
+                    <include>application-${env}.yaml</include>
+                    <include>application-${env}.properties</include>
                 </includes>
             </resource>
         </resources>
