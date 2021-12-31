@@ -1,17 +1,26 @@
 # springcloud
 
 ## 1. 项目介绍
-spring Cloud项目搭建，无具体业务。
+spring Cloud alibaba项目搭建，无具体业务。
 
 ## 2. 项目总体架构图
 ![](resources/Springcloud技术架构.png)
 
 ## 3. 功能介绍
 * **分布式系统基础支撑**
-    * 服务注册发现、路由与负载均衡
-    * 服务降级与熔断
-    * nacos配置注册中心
-    * 分布式锁
+    * nacos配置中心
+    * nacos注册中心
+    * 全链路蓝绿灰度发布容灾: discovery
+    * 网关动态路由: discovery
+    * 服务调用：openfeign
+    * 服务熔断和降级：Hystrix
+    * spring-cloud
+    * spring-cloud-alibaba
+    * API网关：spring-cloud-alibaba-gateway
+    * 持久层：mybits-plus
+    * nosql：redis
+    * 分布式锁：redisson
+    * 分布式事务：seata
 
 ## 4. 模块说明
 ```lua
