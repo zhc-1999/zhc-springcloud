@@ -33,7 +33,11 @@ public class TestController {
         log.info("test");
         return "testDataService.test()";
     }
-
+    @GetMapping("test2")
+    public String test2(){
+        log.info("test2");
+        return testDataService.selectPage();
+    }
 
     @RequestMapping(value = "/test", method = RequestMethod.POST)
     @SentinelResource(value = "test")
@@ -41,7 +45,5 @@ public class TestController {
         log.info("test");
         return testDataService.select().toString();
     }
-    public String handler(BlockException blockException){
-        return  444+blockException.getClass().getName();
-    }
+
 }

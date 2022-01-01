@@ -12,4 +12,5 @@ import java.util.List;
  */
 public interface TestDataService {
     List<TestData> select();
+    String selectPage();
 }
