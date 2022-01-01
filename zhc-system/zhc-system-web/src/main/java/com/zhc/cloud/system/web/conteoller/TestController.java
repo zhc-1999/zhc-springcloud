@@ -1,5 +1,7 @@
 package com.zhc.cloud.system.web.conteoller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.zhc.cloud.system.service.TestDataService;
 import com.zhc.cloud.system.service.TestService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,8 +36,12 @@ public class TestController {
 
 
     @RequestMapping(value = "/test", method = RequestMethod.POST)
+    @SentinelResource(value = "test")
     public String test(){
         log.info("test");
         return testDataService.select().toString();
+    }
+    public String handler(BlockException blockException){
+        return  444+blockException.getClass().getName();
     }
 }

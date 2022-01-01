@@ -28,8 +28,31 @@ spring:
 
 
 
-  #nacos
+
   cloud:
+    #    sentinel策略
+    sentinel:
+      #心跳启动
+      eager: true
+      transport:
+        # 配置sentinel dashboard地址
+        dashboard: localhost:8080
+        # 默认端口
+        port: 8719
+      datasource:
+        #限流配置
+        flow:
+          nacos:
+            server-addr: 127.0.0.1:8848
+            data-id: ${spring.application.name}-flow-rules
+            group-id: ZHC_GROUP
+            namespace: ZHC_GROUP
+            username: nacos
+            password: nacos
+            data-type: json
+            #rule-type 配置表示该数据源中的规则属于哪种类型的规则(flow，degrade，authority，system, param-flow, gw-flow, gw-api-group)
+            rule-type: flow
+    #nacos
     nacos:
       # nacos discovery 配置
       discovery:

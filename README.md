@@ -21,6 +21,7 @@ spring Cloud alibaba项目搭建，无具体业务。
     * nosql：redis
     * 分布式锁：redisson
     * 分布式事务：seata
+    * Sentinel 实时监控
 
 ## 4. 模块说明
 ```lua
