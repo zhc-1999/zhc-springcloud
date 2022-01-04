@@ -46,6 +46,6 @@ public class IpAdrressUtil {
         if (StringUtils.isEmpty(xFor) || UN_KNOWN.equalsIgnoreCase(xFor)) {
             xFor = request.getRemoteAddress() == null ? null : request.getRemoteAddress().toString();
         }
-        return xFor;
+        return "0:0:0:0:0:0:0:1".equals(xFor) ? "127.0.0.1" : xFor;
     }
 }
