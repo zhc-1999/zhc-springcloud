@@ -20,12 +20,11 @@ public class ControllerTest {
 
     @GetMapping("set")
     public String set(){
-        redisUtils.set("key","value");
+        redisUtils.set("user","{\"user\":\"1\",\"name\":\"张三\"}");
         return "success";
     }
     @GetMapping("get")
     public Object get(){
-        Object key = redisUtils.get("key");
-        return key;
+        return redisUtils.get("user");
     }
 }

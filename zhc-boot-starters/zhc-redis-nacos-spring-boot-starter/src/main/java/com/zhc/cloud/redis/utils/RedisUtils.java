@@ -114,6 +114,16 @@ public class RedisUtils {
     }
 
     /**
+     * 分布式锁
+     * 如果为空就set值，并返回1
+     * 如果存在(不为空)不进行操作，并返回0
+     * @param key   键
+     * @param value 值
+     */
+    public boolean setIfAbsent(String key, String value) {
+       return redisTemplate.opsForValue().setIfAbsent(key,value);
+    }
+    /**
      * 批量添加 key-value 只有在键不存在时,才添加
      * map 中只要有一个key存在,则全部不添加
      *
