@@ -124,9 +124,12 @@
                 <directory>${basedir}/src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <!--                    <include>*/*-${env}.xml</include>-->
-                    <include>bootstrap.yml</include>
-                    <!--                    <include>application.properties</include>-->
+                                        <include>*/*-${env}.xml</include>
+                                        <include>bootstrap.yml</include>
+                                        <include>zhc-gateway.yml</include>
+                                        <include>zhc-gateway.yaml</include>
+                                        <include>zhc-gateway-${env}.yaml</include>
+                                        <include>application.properties</include>
                                         <include>application-${env}.yml</include>
                                         <include>application-${env}.yaml</include>
                                         <include>application-${env}.properties</include>

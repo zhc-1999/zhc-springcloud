@@ -1,4 +1,5 @@
-
+server:
+  port: 6001
 spring:
   main:
     allow-bean-definition-overriding: true
@@ -81,3 +82,5 @@ redisson:
     addresses: ''
   single:
     addresses: redis://192.168.171.178:6379
+cache:
+  prefix: zhc-gateway

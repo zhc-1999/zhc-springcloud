@@ -1,3 +1,5 @@
+server:
+  port: 7001
 spring:
   servlet:
     multipart:
@@ -33,7 +35,7 @@ spring:
       eager: true
       transport:
         # 配置sentinel dashboard地址
-        dashboard: localhost:8080
+        dashboard: localhost:8001
         # 默认端口
         port: 8719
       datasource:

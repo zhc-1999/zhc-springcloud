@@ -8,6 +8,7 @@
         <groupId>com.alibaba.csp</groupId>
         <artifactId>sentinel-parent</artifactId>
         <version>1.8.3</version>
+        <relativePath/>
     </parent>
 
     <artifactId>zhc-sentinel-dashboard</artifactId>
@@ -142,7 +143,7 @@
     </dependencies>
 
     <build>
-        <finalName>sentinel-dashboard</finalName>
+        <finalName>zhc-sentinel-dashboard</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>

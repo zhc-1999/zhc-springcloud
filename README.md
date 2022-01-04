@@ -26,19 +26,20 @@ spring Cloud alibaba项目搭建，无具体业务。
 ## 4. 模块说明
 ```lua
 springcloud -- 父项目，公共依赖
-│  ├─zhc-business -- 业务模块
+│  ├─zhc-business -- 业务模块(7003)
 │  │  ├─zhc-business-api -- 接口
 │  │  ├─zhc-business-domain -- 数据库操作
 │  │  ├─zhc-business-service -- 业务层
 │  │  ├─zhc-business-start -- 启动类
 │  │  ├─zhc-business-web -- 接口入口 conteoller
-│  ├─zhc-system -- system模块
+│  ├─zhc-system -- system模块(7001)
 │  │  ├─zhc-system-api -- 接口
 │  │  ├─zhc-system-domain -- 数据库操作
 │  │  ├─zhc-system-service -- 业务层
 │  │  ├─zhc-system-start -- 启动类
 │  │  ├─zhc-system-web -- 接口入口 conteoller
-│  ├─zhc-gateway -- api网关工程
+│  ├─zhc-sentinel-dashboard -- sentinel web(8001)
+│  ├─zhc-gateway -- api网关工程(6001)
 │  ├─zhc-common -- 通用依赖
 │  ├─zhc-boot-starters -- 封装的starter
 │  │  ├─zhc-spring-boot-starter -- springboot starter
