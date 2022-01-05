@@ -36,27 +36,42 @@ spring:
   cloud:
     # gateway 网关配置
     gateway:
-      discovery:
-        locator:
-          #使用服务发现路由
-          enabled: true
-          lower-case-service-id: true
+    #      routes:
+    #        #配置路由： 路由id,路由到微服务的uri,断言（判断条件）
+    #        - id: ZHC-SYSTEM-SERVICE #保持唯一
+    #          uri: http://127.0.0.1:7001 #目标为服务地址
+    #          predicates:
+    #            - Path=/zhc-system-service/** #设置路由断言,代理zhc-system-service
+    #      discovery:
+    #        locator:
+    #          #使用服务发现路由
+    #          enabled: true
+    #          lower-case-service-id: true
     nacos:
       # nacos discovery 配置
       discovery:
+        #使用nacos的配置中心配置覆盖本地配置
         enabled: true
+        #分組
         group: ZHC_GROUP
+        #给服务添加一些标签，例如属于什么业务线，该元数据会持久化存储在服务端，但是客户端消费时不会获取到此值，默认为空
         metadata:
           env: env1
           group: ZHC_GROUP
           region: dev
           version: 1.0
           zone: zone1
+        #命名空间ID
         namespace: ZHC_GROUP
+        #账号
         username: nacos
+        #密码
         password: nacos
+        #该项目是否向注册中心注册服务，默认为true
         register-enabled: true
+        #nacos地址
         server-addr: 127.0.0.1:8848
+        #项目名称
         service: ZHC-GATEWAY-SERVICE
 
   redis:
