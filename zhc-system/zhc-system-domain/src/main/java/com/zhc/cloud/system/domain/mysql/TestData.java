@@ -1,6 +1,9 @@
 package com.zhc.cloud.system.domain.mysql;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.zhc.cloud.mybatis.base.BaseEntity;
 import lombok.Data;
 

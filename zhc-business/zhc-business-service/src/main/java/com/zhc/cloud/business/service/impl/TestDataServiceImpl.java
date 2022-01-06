@@ -21,7 +21,7 @@ public class TestDataServiceImpl extends ServiceImpl<TestDataMapper, TestData> i
     private TestDataMapper testDataMapper;
 
     @Autowired
-    FeignTestClient feignTestClient;
+    private FeignTestClient feignTestClient;
     @Override
     public List<TestData> select() {
         return testDataMapper.selectList(new LambdaQueryWrapper<>());

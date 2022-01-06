@@ -140,16 +140,14 @@ public class AuthFilter implements GlobalFilter, Ordered {
     }
     /**
      * 防重放
-     *
-     * @param authorization
-     * @return
+     * @return boolean
      */
     private boolean antiReplay(String authorization,String timestamp) {
         long redisStart = System.currentTimeMillis();
         try {
             String md5Str = Md5Util.md5Capital(authorization+timestamp);
             if (redisUtils.setIfAbsent(md5Str, "1")) {
-                redisUtils.expire(md5Str, 25);
+                redisUtils.expire(md5Str, 10);
                 log.info("链路安全redis防重放key：{}", md5Str);
             } else {
                 log.info("链路安全redis防重放校验已存在key:{}", md5Str);
@@ -157,6 +155,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
             }
         } catch (Exception e) {
             log.error("链路安全redis防重放报错信息：", e);
+            return false;
         }
         long redisEnd = System.currentTimeMillis();
         log.info("服务端链路安全redis防重放总耗时（毫秒）：{}", (redisEnd - redisStart));
