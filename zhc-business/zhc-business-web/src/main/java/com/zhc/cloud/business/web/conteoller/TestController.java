@@ -8,6 +8,8 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author zhc
  * @description 测试
@@ -25,7 +27,7 @@ public class TestController {
     private TestDataService testDataService;
 
     @GetMapping("test")
-    public String test(){
+    public String test(HttpServletRequest request){
         log.info("test");
         return testDataService.test();
     }

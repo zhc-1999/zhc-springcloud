@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import java.net.URLDecoder;
+
 /**
  * @author zhc
  * @description 测试
@@ -41,8 +44,15 @@ public class TestController {
 
     @RequestMapping(value = "/test", method = RequestMethod.POST)
     @SentinelResource(value = "test")
-    public String test(){
-        log.info("test");
+    public String test(HttpServletRequest request){
+        String s = request.getHeaders("n-d-user-name").nextElement();
+        String name = "";
+        try {
+            name = URLDecoder.decode(s, "UTF-8");
+        }catch (Exception e){
+            log.error("",e);
+        }
+        log.info(name);
         return testDataService.select().toString();
     }
 

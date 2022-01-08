@@ -73,20 +73,20 @@ public class AuthFilter implements GlobalFilter, Ordered {
             log.info("链路安全校验获取到请求头中的x-authorization：{}", authorization);
             if (StringUtils.isEmpty(authorization)) {
                 log.info("链路安全校验失败：请求头中没有x-authorization");
-                return ResponseUtil.failed(response, new Result("请求失败，请稍后重试(103)"));
+                return ResponseUtil.failed(response, Result.failed("请求失败，请稍后重试(103)"));
             }
             String[] split = authorization.split(":");
             if (split.length != 2) {
                 log.info("链路安全校验失败，x-authorization参数中：分割非法");
-                return ResponseUtil.failed(response, new Result("请求失败，请稍后重试(103)"));
+                return ResponseUtil.failed(response, Result.failed("请求失败，请稍后重试(103)"));
             }
             String timestamp = headers.getFirst("timestamp");
             if (!checkTimeStamp(timestamp)){
-                return ResponseUtil.failed(response, new Result("请求失败，请稍后重试(103)"));
+                return ResponseUtil.failed(response, Result.failed("请求失败，请稍后重试(103)"));
             }
             //获取请求body内容
-            String strBody = readAsChars(request);
-            log.info("链路安全校验-服务端获取请求体内容：{}", strBody);
+//            String strBody = readAsChars(request);
+//            log.info("链路安全校验-服务端获取请求体内容：{}", strBody);
             //获取请求方式 post，get等
             String method = request.getMethodValue();
             log.info("链路安全校验-服务端获取请求方式：{}", method);
@@ -94,13 +94,13 @@ public class AuthFilter implements GlobalFilter, Ordered {
             //防重放
             boolean antiReplay = antiReplay(authorization,timestamp);
             if (!antiReplay) {
-                return ResponseUtil.failed(response, new Result("请求失败，请稍后重试(103)"));
+                return ResponseUtil.failed(response, Result.failed("请求失败，请稍后重试(103)"));
             }
             log.info("链路安全校验成功");
             long end = System.currentTimeMillis();
             log.info("服务端链路安全校验总耗时（毫秒）：{}", (end - start));
         } catch (Exception e) {
-            return ResponseUtil.failed(response, new Result("请求失败，请稍后重试(103)"));
+            return ResponseUtil.failed(response, Result.failed("请求失败，请稍后重试(103)"));
         }
         return chain.filter(exchange);
     }
