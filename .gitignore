@@ -64,7 +64,7 @@ out/
 
 # log
 logs/
-.log
+*.log
 
 # Mac
 .DS_Store
