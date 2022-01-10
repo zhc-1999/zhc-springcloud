@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.URLDecoder;
 
 /**
  * @author zhc
@@ -28,7 +29,14 @@ public class TestController {
 
     @GetMapping("test")
     public String test(HttpServletRequest request){
-        log.info("test");
+        String s = request.getHeaders("user-name").nextElement();
+        String name = "";
+        try {
+            name = URLDecoder.decode(s, "UTF-8");
+        }catch (Exception e){
+            log.error("",e);
+        }
+        log.info(name);
         return testDataService.test();
     }
     @GetMapping("/test1")

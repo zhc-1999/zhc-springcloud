@@ -9,8 +9,8 @@ public class GatewayConstants {
     /**
      * Discovery配置Header
      */
-    public static final String DISCOVERY_HEADER_USER_ID = "n-d-user-id";
-    public static final String DISCOVERY_HEADER_USER_NAME = "n-d-user-name";
+    public static final String DISCOVERY_HEADER_USER_ID = "user-id";
+    public static final String DISCOVERY_HEADER_USER_NAME = "user-name";
 
 
 }

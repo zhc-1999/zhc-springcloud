@@ -1,8 +1,8 @@
 package com.zhc.cloud.system.start;
 
 import com.nepxion.discovery.plugin.strategy.adapter.StrategyTracerAdapter;
-import com.nepxion.discovery.plugin.strategy.service.monitor.ServiceStrategyMonitorAdapter;
-import com.zhc.cloud.discovery.service.adapter.MyServiceStrategyMonitorAdapter;
+//import com.nepxion.discovery.plugin.strategy.service.monitor.ServiceStrategyMonitorAdapter;
+//import com.zhc.cloud.discovery.service.adapter.MyServiceStrategyMonitorAdapter;
 import com.zhc.cloud.discovery.service.adapter.MyStrategyTracerAdapter;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -26,12 +26,9 @@ public class ZhcSystemStartApplication {
         SpringApplication.run(ZhcSystemStartApplication.class, args);
     }
 
-    @Bean
-    public StrategyTracerAdapter strategyTracerAdapter() {
-        return new MyStrategyTracerAdapter();
-    }
-    @Bean
-    public ServiceStrategyMonitorAdapter serviceStrategyMonitorAdapter() {
-        return new MyServiceStrategyMonitorAdapter();
-    }
+//    @Bean
+//    public StrategyTracerAdapter strategyTracerAdapter() {
+//        return new MyStrategyTracerAdapter();
+//    }
+
 }

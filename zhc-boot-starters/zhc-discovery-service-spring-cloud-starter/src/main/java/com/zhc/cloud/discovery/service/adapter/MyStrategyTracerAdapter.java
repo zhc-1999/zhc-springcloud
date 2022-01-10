@@ -29,8 +29,8 @@ public class MyStrategyTracerAdapter extends DefaultStrategyTracerAdapter {
     @Override
     public Map<String, String> getCustomizationMap() {
         Map<String, String> customizationMap = new LinkedHashMap<String, String>();
-        customizationMap.put("n-d-user-id", StringUtils.isNotEmpty(strategyContextHolder.getHeader("n-d-user-id")) ? strategyContextHolder.getHeader("n-d-user-id") : StringUtils.EMPTY);
-        customizationMap.put("n-d-user-name", StringUtils.isNotEmpty(strategyContextHolder.getHeader("n-d-user-name")) ? strategyContextHolder.getHeader("n-d-user-name") : StringUtils.EMPTY);
+        customizationMap.put("user-id", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user-id")) ? strategyContextHolder.getHeader("user-id") : StringUtils.EMPTY);
+        customizationMap.put("user-name", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user-name")) ? strategyContextHolder.getHeader("user-name") : StringUtils.EMPTY);
         return customizationMap;
     }
 }

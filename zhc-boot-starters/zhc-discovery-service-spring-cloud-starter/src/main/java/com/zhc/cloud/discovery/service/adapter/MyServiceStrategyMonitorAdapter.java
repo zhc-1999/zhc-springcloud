@@ -17,13 +17,13 @@ import java.util.Map;
 // parameterMap格式：
 // key为入参名
 // value为入参值
-public class MyServiceStrategyMonitorAdapter implements ServiceStrategyMonitorAdapter {
-    @Override
-    public Map<String, String> getCustomizationMap(ServiceStrategyMonitorInterceptor interceptor, MethodInvocation invocation, Map<String, Object> parameterMap, Object returnValue) {
-        Map<String, String> customizationMap = new LinkedHashMap<String, String>();
-        customizationMap.put(DiscoveryConstant.PARAMETER, parameterMap.toString());
-        customizationMap.put(DiscoveryConstant.RETURN, returnValue != null ? returnValue.toString() : null);
-
-        return customizationMap;
-    }
-}
+//public class MyServiceStrategyMonitorAdapter implements ServiceStrategyMonitorAdapter {
+//    @Override
+//    public Map<String, String> getCustomizationMap(ServiceStrategyMonitorInterceptor interceptor, MethodInvocation invocation, Map<String, Object> parameterMap, Object returnValue) {
+//        Map<String, String> customizationMap = new LinkedHashMap<String, String>();
+//        customizationMap.put(DiscoveryConstant.PARAMETER, parameterMap.toString());
+//        customizationMap.put(DiscoveryConstant.RETURN, returnValue != null ? returnValue.toString() : null);
+//
+//        return customizationMap;
+//    }
+//}

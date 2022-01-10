@@ -45,7 +45,7 @@ public class TestController {
     @RequestMapping(value = "/test", method = RequestMethod.POST)
     @SentinelResource(value = "test")
     public String test(HttpServletRequest request){
-        String s = request.getHeaders("n-d-user-name").nextElement();
+        String s = request.getHeaders("user-name").nextElement();
         String name = "";
         try {
             name = URLDecoder.decode(s, "UTF-8");
