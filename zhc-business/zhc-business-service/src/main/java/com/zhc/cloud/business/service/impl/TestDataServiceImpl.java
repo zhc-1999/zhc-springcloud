@@ -29,6 +29,9 @@ public class TestDataServiceImpl extends ServiceImpl<TestDataMapper, TestData> i
 
     @Override
     public String test() {
-        return feignTestClient.test(new com.zhc.cloud.system.api.entity.TestData());
+        com.zhc.cloud.system.api.entity.TestData testData = new com.zhc.cloud.system.api.entity.TestData();
+        testData.setId(1L);
+        testData.setName("名称");
+        return feignTestClient.test(testData);
     }
 }

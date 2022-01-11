@@ -1,16 +1,13 @@
 package com.zhc.cloud.system.web.conteoller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.alibaba.csp.sentinel.slots.block.BlockException;
+import com.zhc.cloud.system.api.entity.TestData;
 import com.zhc.cloud.system.service.TestDataService;
 import com.zhc.cloud.system.service.TestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
@@ -44,7 +41,7 @@ public class TestController {
 
     @RequestMapping(value = "/test", method = RequestMethod.POST)
     @SentinelResource(value = "test")
-    public String test(HttpServletRequest request){
+    public String test(HttpServletRequest request, @RequestBody TestData testData){
         String s = request.getHeaders("user-name").nextElement();
         String name = "";
         try {
@@ -53,6 +50,7 @@ public class TestController {
             log.error("",e);
         }
         log.info(name);
+        log.info(String.valueOf(testData));
         return testDataService.select().toString();
     }
 
