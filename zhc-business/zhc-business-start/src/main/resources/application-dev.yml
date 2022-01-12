@@ -88,9 +88,9 @@ feign:
     config:
       default:
         #feign客户端建立连接超时时间
-        connect-timeout: 2000
+        connect-timeout: 20000
         #feign客户端建立连接后读取资源超时时间
-        read-timeout: 10000
+        read-timeout: 100000
   #开启Hystrix断路器
   hystrix:
     enabled: true
@@ -102,7 +102,7 @@ hystrix:
         isolation:
           thread:
             #在调用方配置，被该调用方的指定方法（HystrixCommandKey方法名）的超时时间是该值
-            timeoutInMilliseconds: 4000
+            timeoutInMilliseconds: 12000
     default:
       circuitBreaker:
         #出错百分比阈值，当达到此阈值后，开始短路。默认50%
@@ -117,7 +117,7 @@ hystrix:
             #配置Hystrix 超时时间   超时关闭
             #hystrix.command.default.execution.timeout.enabled=false
             #超时时间（默认1000ms）在调用方配置，被该调用方的所有方法的超时时间都是该值，优先级低于下边的指定配置
-            timeoutInMilliseconds: 3000
+            timeoutInMilliseconds: 9000
       fallback:
         isolation:
           semaphore:

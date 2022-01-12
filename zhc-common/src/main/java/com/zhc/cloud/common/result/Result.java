@@ -1,8 +1,6 @@
 package com.zhc.cloud.common.result;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 
 /**
@@ -12,8 +10,8 @@ import lombok.ToString;
  * VO（ View Object）：显示层对象，通常是Web向模板渲染引擎层传输的对象。
  * @date 2021/10/0101:15
  */
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 @ToString
 public class Result<T> {
     /**

@@ -105,7 +105,7 @@ public interface FeignTestClient {
      * @return
      */
     @RequestMapping(value = "/test", method = RequestMethod.POST)
-    String test(@RequestBody TestData testData);
+    String test(@RequestBody TestData testDataVO);
 }
 ```
 
@@ -114,7 +114,7 @@ public interface FeignTestClient {
 @Component
 public class FeignSystemClientCallback  implements FeignTestClient {
     @Override
-    public String test(TestData testData) {
+    public String test(TestData testDataVO) {
         return "服务器忙!请稍后重试!!!";
     }
 }
@@ -122,8 +122,8 @@ public class FeignSystemClientCallback  implements FeignTestClient {
 在zhc-system-web中新建一个测试方法
 ```
 @RequestMapping(value = "/test", method = RequestMethod.POST)
-public String test(@RequestBody TestData testData){
-    log.info(String.valueOf(testData));
+public String test(@RequestBody TestData testDataVO){
+    log.info(String.valueOf(testDataVO));
     return testDataService.select().toString();
 }
 ```

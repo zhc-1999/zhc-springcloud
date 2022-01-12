@@ -6,7 +6,7 @@ import lombok.Data;
  * @author zhc
  */
 @Data
-public class TestData {
+public class TestDataVO {
     private Long id;
 
     private String name;

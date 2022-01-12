@@ -1,6 +1,6 @@
 package com.zhc.cloud.system.service;
 
-import com.zhc.cloud.system.domain.mysql.TestData;
+import com.zhc.cloud.system.domain.mysql.TestDataPO;
 
 import java.util.List;
 
@@ -11,6 +11,6 @@ import java.util.List;
  * @date 2021-12-25 05:54
  */
 public interface TestDataService {
-    List<TestData> select();
+    List<TestDataPO> select();
     String selectPage();
 }

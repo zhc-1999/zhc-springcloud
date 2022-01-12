@@ -20,6 +20,11 @@
             <artifactId>zhc-feign-spring-cloud-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.zhc.cloud</groupId>
+            <artifactId>zhc-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <properties>

@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @TableName(value = "test_data")
 @Data
-public class TestData {
+public class TestDataPO {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 

@@ -1,6 +1,7 @@
 package com.zhc.cloud.system.api.client;
 
-import com.zhc.cloud.system.api.entity.TestData;
+import com.zhc.cloud.common.result.Result;
+import com.zhc.cloud.system.api.entity.TestDataVO;
 import com.zhc.cloud.system.api.fallback.FeignSystemClientCallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,5 +22,5 @@ public interface FeignTestClient {
      * @return
      */
     @RequestMapping(value = "/test", method = RequestMethod.POST)
-    String test(@RequestBody TestData testData);
+    Result<?> test(@RequestBody TestDataVO testDataVO);
 }

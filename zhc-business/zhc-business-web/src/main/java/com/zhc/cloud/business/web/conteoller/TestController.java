@@ -2,6 +2,7 @@ package com.zhc.cloud.business.web.conteoller;
 
 import com.zhc.cloud.business.service.TestDataService;
 import com.zhc.cloud.business.service.TestService;
+import com.zhc.cloud.common.result.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -28,7 +29,7 @@ public class TestController {
     private TestDataService testDataService;
 
     @GetMapping("test")
-    public String test(HttpServletRequest request){
+    public Result<?> test(HttpServletRequest request){
         String s = request.getHeaders("user-name").nextElement();
         String name = "";
         try {

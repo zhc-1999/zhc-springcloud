@@ -1,7 +1,8 @@
 package com.zhc.cloud.system.api.fallback;
 
+import com.zhc.cloud.common.result.Result;
 import com.zhc.cloud.system.api.client.FeignTestClient;
-import com.zhc.cloud.system.api.entity.TestData;
+import com.zhc.cloud.system.api.entity.TestDataVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class FeignSystemClientCallback  implements FeignTestClient {
 
     @Override
-    public String test(TestData testData) {
-        return "服务器忙!请稍后重试!!!";
+    public Result<?> test(TestDataVO testDataVO) {
+        return Result.failed("服务器忙!请稍后重试!!!");
     }
 }

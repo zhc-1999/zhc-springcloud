@@ -12,7 +12,7 @@ import lombok.Data;
  */
 @TableName(value = "test_data")
 @Data
-public class TestData extends BaseEntity {
+public class TestDataPO extends BaseEntity {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
@@ -25,31 +25,5 @@ public class TestData extends BaseEntity {
 
     public static final String COL_NAME = "name";
 
-    /**
-     * @return id
-     */
-    public Long getId() {
-        return id;
-    }
 
-    /**
-     * @param id
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    /**
-     * @return name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
 }

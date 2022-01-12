@@ -1,7 +1,7 @@
 package com.zhc.cloud.system.web.conteoller;
 
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.zhc.cloud.system.api.entity.TestData;
+import com.zhc.cloud.common.result.Result;
+import com.zhc.cloud.system.api.entity.TestDataVO;
 import com.zhc.cloud.system.service.TestDataService;
 import com.zhc.cloud.system.service.TestService;
 import lombok.extern.slf4j.Slf4j;
@@ -40,8 +40,7 @@ public class TestController {
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.POST)
-    @SentinelResource(value = "test")
-    public String test(HttpServletRequest request, @RequestBody TestData testData){
+    public Result<?> test(HttpServletRequest request, @RequestBody TestDataVO testDataVO){
         String s = request.getHeaders("user-name").nextElement();
         String name = "";
         try {
@@ -50,8 +49,8 @@ public class TestController {
             log.error("",e);
         }
         log.info(name);
-        log.info(String.valueOf(testData));
-        return testDataService.select().toString();
+        log.info(String.valueOf(testDataVO));
+        return Result.success(testDataService.select());
     }
 
 }
