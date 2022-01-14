@@ -1,4 +1,4 @@
-package com.zhc.cloud.business.web.conteoller;
+package com.zhc.cloud.business.web.controller;
 
 import com.zhc.cloud.business.service.TestDataService;
 import com.zhc.cloud.business.service.TestService;

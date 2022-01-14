@@ -1,4 +1,4 @@
-package com.zhc.cloud.system.web.conteoller;
+package com.zhc.cloud.system.web.controller;
 
 import com.zhc.cloud.common.result.Result;
 import com.zhc.cloud.system.api.entity.TestDataVO;

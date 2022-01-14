@@ -36,6 +36,12 @@ public class Result<T> {
     public static <R> Result<R> success(R data) {
         return new Result<>(ResultCode.SUCCESS, "success", data);
     }
+    public static <R> Result<R> success(ResultCode resultCode,R data) {
+        return new Result<>(resultCode, resultCode.getMsg(), data);
+    }
+    public static <R> Result<R> failed() {
+        return new Result<>(ResultCode.FAILED);
+    }
     public static <R> Result<R> failed(String error) {
         return new Result<>(ResultCode.FAILED, error);
     }

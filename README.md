@@ -22,6 +22,7 @@ spring Cloud alibaba项目搭建，无具体业务。
     * 分布式锁：redisson
     * 分布式事务：seata
     * Sentinel 实时监控
+    * 生成代码 mybatis-plus
 
 ## 4. 模块说明
 ```lua
@@ -41,6 +42,7 @@ springcloud -- 父项目，公共依赖
 │  ├─zhc-sentinel-dashboard -- sentinel web(8001)
 │  ├─zhc-gateway -- api网关工程(6001)
 │  ├─zhc-common -- 通用依赖
+│  ├─zhc-generator -- 生成代码
 │  ├─zhc-boot-starters -- 封装的starter
 │  │  ├─zhc-spring-boot-starter -- springboot starter
 │  │  ├─zhc-db-nacos-mybatis-plus-starter -- 封装数据库通用操作逻辑（可用nacos动态修改数据库连接账号密码等）
