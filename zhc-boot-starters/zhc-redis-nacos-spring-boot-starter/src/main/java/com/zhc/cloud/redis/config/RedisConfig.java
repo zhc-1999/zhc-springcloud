@@ -1,10 +1,8 @@
 package com.zhc.cloud.redis.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
@@ -13,11 +11,12 @@ import org.redisson.config.Config;
 import org.redisson.config.SentinelServersConfig;
 import org.redisson.config.SingleServerConfig;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.annotation.Reference;
 import org.springframework.data.redis.connection.*;
-import org.springframework.data.redis.connection.jedis.JedisClientConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
@@ -161,29 +160,27 @@ public class RedisConfig {
      * @return
      */
     @RefreshScope
-    public RedisConnectionFactory createJedisConnectionFactory() {
-        //获得默认的连接池构造器
-        JedisClientConfiguration.JedisPoolingClientConfigurationBuilder jpccb =
-                (JedisClientConfiguration.JedisPoolingClientConfigurationBuilder) JedisClientConfiguration.builder();
-        jpccb.poolConfig(setPoolConfig(redisPoolMaxIdle, redisPoolMinIdle, redisPoolMaxActive, redisPoolMaxWait, Boolean.FALSE));
-        //通过构造器来构造jedis客户端配置
-        JedisClientConfiguration jedisClientConfiguration = jpccb.build();
-        // 策略配置，此处应该设置统一配置变量，根据枚举类型执行策略
+    public JedisConnectionFactory createJedisConnectionFactory() {
+        JedisConnectionFactory jedisConnectionFactory = null;
         if (StringUtils.isNotBlank(host)) {
             RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
             config.setHostName(host);
             config.setPort(port);
-            return new JedisConnectionFactory(config, jedisClientConfiguration);
+            jedisConnectionFactory = new JedisConnectionFactory(config);
         } else if (StringUtils.isNotBlank(clusterNodes)) {
             RedisClusterConfiguration config = new RedisClusterConfiguration();
             config.setClusterNodes(createSentinels(clusterNodes));
-            return new JedisConnectionFactory(config, jedisClientConfiguration);
+            jedisConnectionFactory = new JedisConnectionFactory(config);
         } else if (StringUtils.isNotBlank(sentinelNodes)) {
             RedisSentinelConfiguration config = new RedisSentinelConfiguration();
             config.setSentinels(createSentinels(sentinelNodes));
-            return new JedisConnectionFactory(config, jedisClientConfiguration);
+            jedisConnectionFactory = new JedisConnectionFactory(config);
         }
-        return null;
+        jedisConnectionFactory.setDatabase(dbIndex);
+        jedisConnectionFactory.setPassword(password);
+        jedisConnectionFactory.setTimeout(timeout);
+        jedisConnectionFactory.setPoolConfig(setPoolConfig(redisPoolMaxIdle, redisPoolMinIdle, redisPoolMaxActive, redisPoolMaxWait, true));
+        return jedisConnectionFactory;
     }
 
     /**
@@ -217,10 +214,7 @@ public class RedisConfig {
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
         ObjectMapper om = new ObjectMapper();
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-
-//        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-        om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
-
+        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
         jackson2JsonRedisSerializer.setObjectMapper(om);
         //设置键（key）的序列化方式
         redisTemplate.setKeySerializer(new StringRedisSerializer());
