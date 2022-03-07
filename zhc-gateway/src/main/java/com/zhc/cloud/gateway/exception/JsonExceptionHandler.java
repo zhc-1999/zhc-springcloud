@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.DefaultErrorWebExceptionHandler;
+import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 
@@ -28,7 +29,7 @@ public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
      * 获取异常属性
      */
     @Override
-    protected Map<String, Object> getErrorAttributes(ServerRequest request, boolean includeStackTrace) {
+    protected Map<String, Object> getErrorAttributes(ServerRequest request, ErrorAttributeOptions options) {
         int code = HttpStatus.INTERNAL_SERVER_ERROR.value();
         Throwable error = super.getError(request);
         String message;
@@ -44,10 +45,10 @@ public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
             message = "未授权访问";
         }
         // 判断是否触发限流异常
-//        if (error instanceof com.alibaba.csp.sentinel.slots.block.flow.FlowException) {
-//            code = 409;
-//            message = "触发限流";
-//        }
+        if (error instanceof com.alibaba.csp.sentinel.slots.block.flow.FlowException) {
+            code = 409;
+            message = "触发限流";
+        }
         return response(code, message);
     }
 

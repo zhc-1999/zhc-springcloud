@@ -31,11 +31,11 @@ public class CoderGenerator  {
 
     // 基础信息配置
     // 数据库连接字符
-    private static final String URL = "jdbc:mysql://127.0.0.1:3306/zhc?useUnicode=true&serverTimezone=UTC&useSSL=false&characterEncoding=utf8";
+    private static final String URL = "jdbc:mysql://192.144.238.212:3306/zhc?useUnicode=true&serverTimezone=UTC&useSSL=false&characterEncoding=utf8";
     // 数据库用户名
     private static final String USERNAME = "root";
     // 数据库密码
-    private static final String PASSWORD = "root";
+    private static final String PASSWORD = "KoammO*Nnts0EsSD";
     // 项目根路径。生成结果如：D:\MyProject\spring-boot
     private static final String projectRootPath = System.getProperty("user.dir");
     // 子项目名称

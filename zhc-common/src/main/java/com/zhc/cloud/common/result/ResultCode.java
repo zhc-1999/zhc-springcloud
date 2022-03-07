@@ -17,7 +17,9 @@ public enum ResultCode {
     SUCCESS(200, "操作成功"),
     FAILED(201, "接口错误"),
     VALIDATE_FAILED(202, "参数校验失败"),
-    ERROR(203, "未知错误");
+    ERROR(203, "未知错误"),
+    NO_ACCESS(204, "拒绝访问"),
+    RE_LOGIN(300, "重新登录");
 
 
 

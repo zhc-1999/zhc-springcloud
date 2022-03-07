@@ -2,6 +2,7 @@ package com.zhc.cloud.mybatis.base;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,6 +12,7 @@ import java.util.Date;
  * @description 抽象实体
  * @date 2022-01-01 14:57
  */
+@Data
 public class BaseEntity implements Serializable {
 
     /**

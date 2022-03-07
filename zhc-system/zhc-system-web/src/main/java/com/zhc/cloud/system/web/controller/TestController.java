@@ -1,6 +1,10 @@
 package com.zhc.cloud.system.web.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.zhc.cloud.common.constant.SecurityConstants;
 import com.zhc.cloud.common.result.Result;
+import com.zhc.cloud.common.utils.ServletUtils;
+import com.zhc.cloud.system.api.dto.LoginUserDTO;
 import com.zhc.cloud.system.api.entity.TestDataVO;
 import com.zhc.cloud.system.service.TestDataService;
 import com.zhc.cloud.system.service.TestService;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
+import java.util.Map;
 
 /**
  * @author zhc
@@ -31,6 +36,14 @@ public class TestController {
     @GetMapping("test1")
     public String test1(){
         log.info("test");
+        log.info(ServletUtils.getHeader(SecurityConstants.DETAILS_USER_ID));
+        log.info(ServletUtils.getHeader(SecurityConstants.DETAILS_USER_NAME));
+        log.info(ServletUtils.getHeader(SecurityConstants.DETAILS_USER_ID));
+        log.info(ServletUtils.getHeader(SecurityConstants.DETAILS_USER_NAME));
+        String loginUser = ServletUtils.getHeader(SecurityConstants.LOGIN_USER);
+        JSONObject dataObj = JSONObject.parseObject(loginUser);
+        LoginUserDTO loginUserDTO = JSONObject.toJavaObject(dataObj, LoginUserDTO.class);
+        log.info(String.valueOf(loginUserDTO));
         return "testDataService.test()";
     }
     @GetMapping("test2")

@@ -38,6 +38,7 @@
         <jodd-version>5.1.4</jodd-version>
         <mapstruct-version>1.3.1.Final</mapstruct-version>
         <discovery.version>6.12.1</discovery.version>
+        <jjwt.version>0.9.1</jjwt.version>
     </properties>
 
 
@@ -259,7 +260,7 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>3.4.3.1</version>
+                <version>3.4.3.2</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -269,7 +270,7 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-core</artifactId>
-                <version>3.4.3.1</version>
+                <version>3.4.3.2</version>
             </dependency>
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
@@ -298,6 +299,12 @@
                 <groupId>com.alibaba.csp</groupId>
                 <artifactId>sentinel-core</artifactId>
                 <version>1.8.3</version>
+            </dependency>
+            <!-- JWT -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

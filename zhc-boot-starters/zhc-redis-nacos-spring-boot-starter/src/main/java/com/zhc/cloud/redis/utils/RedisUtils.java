@@ -36,23 +36,41 @@ public class RedisUtils {
     }
 
     /**
-     * 根据key 获取过期时间
+     * 根据key 获取有效时间
      *
      * @param key
-     * @return
+     * @return 有效时间
      */
-    public long getTime(String key) {
-        return redisTemplate.getExpire(key, TimeUnit.SECONDS);
+    public long getTime(String key,TimeUnit timeUnit) {
+        return redisTemplate.getExpire(key, timeUnit);
     }
 
     /**
-     * 根据key 获取过期时间
+     * 根据key 获取有效时间
+     *
+     * @param key Redis键
+     * @return 有效时间
+     */
+    public long getTime(String key) {
+        return redisTemplate.getExpire(key);
+    }
+    /**
+     * 根据key判断 key是否存在
      *
      * @param key
      * @return
      */
     public boolean hasKey(String key) {
         return redisTemplate.hasKey(key);
+    }
+
+    /**
+     * 删除key
+     *
+     * @param key
+     */
+    public boolean delKey(String key) {
+        return redisTemplate.delete(key);
     }
 
     /**

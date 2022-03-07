@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Redis配置类
  *
- * @author 邓健
+ * @author zhc
  * @date 2020-12-05
  */
 @Configuration

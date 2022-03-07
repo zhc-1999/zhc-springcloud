@@ -49,6 +49,9 @@ public class Result<T> {
     public static <R> Result<R> failed(ResultCode resultCode,String error) {
         return new Result<>(resultCode, error);
     }
+    public static <R> Result<R> reLogin(String error) {
+        return new Result<>(ResultCode.RE_LOGIN, error);
+    }
 
     public Result(T data) {
         this(ResultCode.SUCCESS, data);

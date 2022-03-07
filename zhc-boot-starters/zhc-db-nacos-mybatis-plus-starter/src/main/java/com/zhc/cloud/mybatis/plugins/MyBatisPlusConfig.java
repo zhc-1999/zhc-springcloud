@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * com.zhc.cloud.system.domain.mapper
  * @author zhc
  * @description 分页配置
  * @date 2022-01-01 15:01

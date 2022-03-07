@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhc.cloud.system.domain.mapper.SysLoginLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zhc.cloud.system.domain.mysql.SysLoginLogPO">
+        <id column="info_id" property="infoId" />
+        <result column="user_id" property="userId" />
+        <result column="ipaddr" property="ipaddr" />
+        <result column="status" property="status" />
+        <result column="msg" property="msg" />
+        <result column="access_time" property="accessTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        info_id, user_id, ipaddr, status, msg, access_time
+    </sql>
+
+</mapper>

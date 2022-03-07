@@ -22,6 +22,12 @@
             <groupId>com.zhc.cloud</groupId>
             <artifactId>zhc-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.zhc.cloud</groupId>
+                    <artifactId>zhc-spring-boot-starter</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!--gateway-->
         <dependency>
