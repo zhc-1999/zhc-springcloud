@@ -23,10 +23,10 @@
         <result column="login_ip" property="loginIp" />
         <result column="login_date" property="loginDate" />
         <result column="remark" property="remark" />
-        <association property="dept"    column="dept_id" javaType="SysDeptPO" resultMap="deptResult" />
-        <collection  property="roles"   javaType="java.util.List"        resultMap="RoleResult" />
+        <association property="dept"    column="dept_id" javaType="com.zhc.cloud.system.domain.mysql.SysDeptPO" resultMap="deptResult" />
+        <collection  property="roles"   javaType="java.util.ArrayList"        resultMap="RoleResult" />
     </resultMap>
-    <resultMap id="deptResult" type="SysDeptPO">
+    <resultMap id="deptResult" type="com.zhc.cloud.system.domain.mysql.SysDeptPO">
         <id     property="deptId"   column="dept_id"     />
         <result property="parentId" column="parent_id"   />
         <result property="deptName" column="dept_name"   />
@@ -35,7 +35,7 @@
         <result property="status"   column="dept_status" />
     </resultMap>
 
-    <resultMap id="RoleResult" type="SysRolePO">
+    <resultMap id="RoleResult" type="com.zhc.cloud.system.domain.mysql.SysRolePO">
         <id     property="roleId"       column="role_id"        />
         <result property="roleName"     column="role_name"      />
         <result property="roleKey"      column="role_key"       />
