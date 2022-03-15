@@ -152,6 +152,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> im
             menuDTOSet.add(menuDTO);
             if (StringUtils.isNotBlank(sysMenuPO.getComponent())) {
                 menuSet.add(sysMenuPO.getComponent());
+
             }
         }
         //菜单存储到redis 中
