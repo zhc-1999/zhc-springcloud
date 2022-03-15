@@ -9,6 +9,7 @@ import com.zhc.cloud.common.enums.UserStatus;
 import com.zhc.cloud.common.result.Result;
 import com.zhc.cloud.common.utils.IdUtils;
 import com.zhc.cloud.common.utils.JwtUtils;
+import com.zhc.cloud.common.utils.SecurityUtils;
 import com.zhc.cloud.common.utils.ServletUtils;
 import com.zhc.cloud.common.utils.ip.IpUtils;
 import com.zhc.cloud.system.api.dto.LoginUserDTO;
@@ -25,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -60,5 +62,14 @@ public class SysUserController {
     @DeleteMapping("logOut")
     public Result<?> logOut() {
         return sysUserService.logOut();
+    }
+    /**
+     * 获取用户信息
+     *
+     * @return 用户信息
+     */
+    @GetMapping("getInfo")
+    public Result<?> getInfo(){
+        return sysUserService.getInfo();
     }
 }

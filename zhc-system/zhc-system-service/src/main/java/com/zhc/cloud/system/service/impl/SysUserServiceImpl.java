@@ -12,6 +12,7 @@ import com.zhc.cloud.common.utils.ServletUtils;
 import com.zhc.cloud.common.utils.ip.IpUtils;
 import com.zhc.cloud.redis.utils.RedisUtils;
 import com.zhc.cloud.system.api.dto.LoginUserDTO;
+import com.zhc.cloud.system.api.dto.SysMenuDTO;
 import com.zhc.cloud.system.api.dto.SysRoleDTO;
 import com.zhc.cloud.system.api.entity.LoginVO;
 import com.zhc.cloud.system.domain.mapper.*;
@@ -85,7 +86,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> im
      */
     @Override
     public Result<?> login(LoginVO loginVO) {
-        String username = loginVO.getUserName();
+        String username = loginVO.getUsername();
         String password = loginVO.getPassword();
         // 用户名或密码为空 错误
         if (StringUtils.isAnyBlank(username, password)) {
@@ -143,7 +144,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> im
         //获取角色菜单
         List<SysMenuPO> sysMenuList =sysMenuMapper.selectByUserId(userId);
         Set<String> menuSet = new HashSet<>();
+        Set<SysMenuDTO> menuDTOSet = new HashSet();
         for (SysMenuPO sysMenuPO : sysMenuList) {
+            SysMenuDTO menuDTO = new SysMenuDTO();
+            BeanUtils.copyProperties(sysMenuPO,menuDTO);
+            menuDTOSet.add(menuDTO);
             if (StringUtils.isNotBlank(sysMenuPO.getComponent())) {
                 menuSet.add(sysMenuPO.getComponent());
             }
@@ -154,6 +159,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> im
         loginUserDTO.setUserName(username);
         loginUserDTO.setUserId(userId);
         loginUserDTO.setRoles(roleSet);
+        loginUserDTO.setMenus(menuDTOSet);
         loginUserDTO.setDeptId(sysDept.getDeptId());
         loginUserDTO.setDeptName(sysDept.getDeptName());
         recordLogininfor(userId, Constants.LOGIN_SUCCESS, "登录成功");
@@ -175,6 +181,19 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> im
             recordLogininfor(userId, Constants.LOGOUT, "退出成功");
         }
         return Result.success();
+    }
+
+    @Override
+    public Result<?> getInfo() {
+        LoginUserDTO loginUserDTO = JSONObject.toJavaObject(JSONObject.parseObject(ServletUtils.getHeader(SecurityConstants.LOGIN_USER)), LoginUserDTO.class);
+        if (loginUserDTO == null){
+            return Result.reLogin("获取用户信息失败，请重新登录");
+        }
+        Long userId = loginUserDTO.getUserId();
+        Object o = redisUtils.get(CacheConstants.LOGIN_TOKEN_KEY + userId);
+        LoginUserDTO loginUser = JSONObject.parseObject(o.toString(), LoginUserDTO.class);
+        loginUser.setToken(null);
+        return Result.success(loginUser);
     }
 
 

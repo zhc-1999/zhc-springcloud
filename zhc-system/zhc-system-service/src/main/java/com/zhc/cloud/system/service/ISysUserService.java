@@ -44,4 +44,6 @@ public interface ISysUserService extends IService<SysUserPO> {
      * @return
      */
     Result<?> logOut();
+
+    Result<?> getInfo();
 }
