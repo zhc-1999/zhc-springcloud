@@ -1,5 +1,6 @@
 package com.zhc.cloud.system.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.zhc.cloud.common.constant.CacheConstants;
 import com.zhc.cloud.common.constant.Constants;
@@ -193,7 +194,20 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> im
         Object o = redisUtils.get(CacheConstants.LOGIN_TOKEN_KEY + userId);
         LoginUserDTO loginUser = JSONObject.parseObject(o.toString(), LoginUserDTO.class);
         loginUser.setToken(null);
-        return Result.success(loginUser);
+        Set<SysMenuDTO> menus = loginUser.getMenus();
+        List<String> menuList = new ArrayList<>();
+        for (SysMenuDTO menu : menus) {
+            menuList.add(menu.getPerms());
+        }
+        Set<SysRoleDTO> roles = loginUser.getRoles();
+        List<String> roleList = new ArrayList<>();
+        for (SysRoleDTO role : roles) {
+            roleList.add(role.getRoleKey());
+        }
+        JSONObject jsonObject = JSONObject.parseObject(o.toString());
+        jsonObject.put("menuList",menuList);
+        jsonObject.put("roleList",roleList);
+        return Result.success(jsonObject);
     }
 
 
