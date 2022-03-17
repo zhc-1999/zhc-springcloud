@@ -2,6 +2,8 @@ package com.zhc.cloud.system.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zhc.cloud.common.constant.CacheConstants;
 import com.zhc.cloud.common.constant.Constants;
 import com.zhc.cloud.common.constant.SecurityConstants;
@@ -9,13 +11,17 @@ import com.zhc.cloud.common.constant.UserConstants;
 import com.zhc.cloud.common.enums.UserStatus;
 import com.zhc.cloud.common.utils.IdUtils;
 import com.zhc.cloud.common.utils.JwtUtils;
+import com.zhc.cloud.common.utils.SensitiveInfoUtils;
 import com.zhc.cloud.common.utils.ServletUtils;
 import com.zhc.cloud.common.utils.ip.IpUtils;
+import com.zhc.cloud.mybatis.base.BaseEntity;
 import com.zhc.cloud.redis.utils.RedisUtils;
 import com.zhc.cloud.system.api.dto.LoginUserDTO;
 import com.zhc.cloud.system.api.dto.SysMenuDTO;
 import com.zhc.cloud.system.api.dto.SysRoleDTO;
+import com.zhc.cloud.system.api.dto.UserDTO;
 import com.zhc.cloud.system.api.entity.LoginVO;
+import com.zhc.cloud.system.api.entity.SysUserVO;
 import com.zhc.cloud.system.domain.mapper.*;
 import com.zhc.cloud.system.domain.mysql.*;
 import com.zhc.cloud.system.service.ISysUserService;
@@ -58,9 +64,27 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> im
     * @return Result
     */
     @Override
-    public Result<List<SysUserPO>> selectList(SysUserPO sysUserPO) {
+    public Result<?> selectList(SysUserVO sysUserVO) {
         LambdaQueryWrapper<SysUserPO> entityWrapper = new LambdaQueryWrapper<SysUserPO>();
-        return Result.success(sysUserPOMapper.selectList(entityWrapper));
+        PageHelper.startPage(sysUserVO.getPageNum(), sysUserVO.getPageSize());
+        entityWrapper.like(StringUtils.isNotBlank(sysUserVO.getUserName()), SysUserPO::getUserName,sysUserVO.getUserName())
+                .like(StringUtils.isNotBlank(sysUserVO.getPhone()),SysUserPO::getPhone, sysUserVO.getPhone())
+                .eq(StringUtils.isNotBlank(sysUserVO.getStatus()), SysUserPO::getStatus, sysUserVO.getStatus())
+                .gt((sysUserVO.getBeginTime()!=null), BaseEntity::getCreateTime,sysUserVO.getBeginTime())
+                .lt((sysUserVO.getEndTime()!=null), BaseEntity::getCreateTime,sysUserVO.getEndTime())
+                .eq((sysUserVO.getDeptId()!=null&&sysUserVO.getDeptId()!=0),SysUserPO::getDeptId, sysUserVO.getDeptId());
+        List<SysUserPO> sysUserPOS = sysUserPOMapper.selectList(entityWrapper);
+        List<UserDTO> userDTOS = new ArrayList<>();
+        for (SysUserPO sysUserPO : sysUserPOS) {
+            UserDTO userDTO = new UserDTO();
+            BeanUtils.copyProperties(sysUserPO,userDTO);
+            SysDeptPO sysDeptPO = sysDeptMapper.selectById(sysUserPO.getDeptId());
+            userDTO.setDeptName(sysDeptPO.getDeptName());
+            userDTO.setPhone(SensitiveInfoUtils.mobilePhone(userDTO.getPhone()));
+            userDTOS.add(userDTO);
+        }
+        PageInfo<UserDTO> pageInfo = new PageInfo<>(userDTOS);
+        return Result.success(pageInfo);
     }
     /***
     * 查询单个
@@ -150,9 +174,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> im
             SysMenuDTO menuDTO = new SysMenuDTO();
             BeanUtils.copyProperties(sysMenuPO,menuDTO);
             menuDTOSet.add(menuDTO);
-            if (StringUtils.isNotBlank(sysMenuPO.getComponent())) {
-                menuSet.add(sysMenuPO.getComponent());
-
+            if (StringUtils.isNotBlank(sysMenuPO.getPath())) {
+                menuSet.add(sysMenuPO.getPath());
             }
         }
         //菜单存储到redis 中

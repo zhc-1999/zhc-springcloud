@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhc.cloud.system.domain.mapper.SysDictDataMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zhc.cloud.system.domain.mysql.SysDictDataPO">
+        <id column="dict_code" property="dictCode" />
+        <result column="create_id" property="createId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_id" property="updateId" />
+        <result column="update_time" property="updateTime" />
+        <result column="dict_sort" property="dictSort" />
+        <result column="dict_label" property="dictLabel" />
+        <result column="dict_value" property="dictValue" />
+        <result column="dict_type" property="dictType" />
+        <result column="css_class" property="cssClass" />
+        <result column="list_class" property="listClass" />
+        <result column="is_default" property="isDefault" />
+        <result column="status" property="status" />
+        <result column="remark" property="remark" />
+        <result column="deleted" property="deleted" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        create_id,
+        create_time,
+        update_id,
+        update_time,
+        dict_code, dict_sort, dict_label, dict_value, dict_type, css_class, list_class, is_default, status, remark, deleted
+    </sql>
+
+</mapper>

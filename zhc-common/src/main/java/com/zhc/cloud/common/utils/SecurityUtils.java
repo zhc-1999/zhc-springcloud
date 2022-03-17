@@ -22,6 +22,12 @@ public class SecurityUtils {
     public static String getUsername() {
         return ServletUtils.getHeader(SecurityConstants.DETAILS_USER_NAME);
     }
+    /**
+     * 获取组织机构deptId
+     */
+    public static String getDeptId() {
+        return ServletUtils.getHeader(SecurityConstants.DETAILS_DEPT_ID);
+    }
 
     /**
      * 获取登录用户信息

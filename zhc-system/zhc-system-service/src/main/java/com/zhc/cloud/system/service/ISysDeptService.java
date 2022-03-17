@@ -1,5 +1,6 @@
 package com.zhc.cloud.system.service;
 
+import com.zhc.cloud.system.api.entity.SysDeptVO;
 import com.zhc.cloud.system.domain.mysql.SysDeptPO;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhc.cloud.common.result.Result;
@@ -31,4 +32,5 @@ public interface ISysDeptService extends IService<SysDeptPO> {
  */
  public Result<SysDeptPO> selectById(Integer id);
 
+    Result<?> treeselect(SysDeptVO dept);
 }

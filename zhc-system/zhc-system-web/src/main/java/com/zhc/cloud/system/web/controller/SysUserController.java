@@ -14,6 +14,7 @@ import com.zhc.cloud.common.utils.ServletUtils;
 import com.zhc.cloud.common.utils.ip.IpUtils;
 import com.zhc.cloud.system.api.dto.LoginUserDTO;
 import com.zhc.cloud.system.api.entity.LoginVO;
+import com.zhc.cloud.system.api.entity.SysUserVO;
 import com.zhc.cloud.system.domain.mysql.SysLoginLogPO;
 import com.zhc.cloud.system.domain.mysql.SysUserPO;
 import com.zhc.cloud.system.service.ISysLoginLogService;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -71,5 +73,12 @@ public class SysUserController {
     @GetMapping("getInfo")
     public Result<?> getInfo(){
         return sysUserService.getInfo();
+    }
+    /**
+     * 获取用户列表
+     */
+    @GetMapping("/list")
+    public Result<?> list(SysUserVO user) {
+        return sysUserService.selectList(user);
     }
 }
