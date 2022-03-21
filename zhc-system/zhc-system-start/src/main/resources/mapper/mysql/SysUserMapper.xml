@@ -23,6 +23,9 @@
         <result column="login_ip" property="loginIp" />
         <result column="login_date" property="loginDate" />
         <result column="remark" property="remark" />
+    </resultMap>
+    <!-- 通用查询映射结果 -->
+    <resultMap id="UserBaseResultMap" extends="BaseResultMap" type="com.zhc.cloud.system.domain.mysql.SysUserPO">
         <association property="dept"    column="dept_id" javaType="com.zhc.cloud.system.domain.mysql.SysDeptPO" resultMap="deptResult" />
         <collection  property="roles"   javaType="java.util.ArrayList"        resultMap="RoleResult" />
     </resultMap>
@@ -45,14 +48,14 @@
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        create_id,
-        create_time,
-        update_id,
-        update_time,
-        user_id, dept_id, user_name, nick_name, user_type, email, phone, sex, avatar, password, status, deleted, login_ip, login_date, remark
+        u.create_id,
+        u.create_time,
+        u.update_id,
+        u.update_time,
+        u.user_id, u.dept_id, u.user_name, u.nick_name, u.user_type, u.email, u.phone, u.sex, u.avatar, u.password, u.status, u.deleted, u.login_ip, u.login_date, u.remark
     </sql>
 
-    <select id="getUserInfo" resultMap="BaseResultMap">
+    <select id="getUserInfo" resultMap="UserBaseResultMap">
         select u.user_id, u.dept_id, u.user_name, u.nick_name, u.email, u.avatar, u.phone, u.password, u.sex, u.status, u.deleted, u.login_ip, u.login_date, u.create_id, u.create_time, u.remark,
                d.dept_id, d.parent_id, d.dept_name, d.order_num, d.leader, d.status as dept_status,
                r.role_id, r.role_name, r.role_key, r.role_sort, r.data_scope, r.status as role_status
@@ -61,5 +64,22 @@
                      left join sys_user_role ur on u.user_id = ur.user_id
                      left join sys_role r on r.role_id = ur.role_id
         where u.user_name = #{userName}
+    </select>
+
+    <select id="selectUserList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user u
+        left join sys_dept  on  u.dept_id =  `sys_dept`.dept_id
+        <where>
+            <if test="ew!=null and ew.sqlSegment!=null and ew.sqlSegment != ''">
+                ${ew.sqlSegment}
+            </if>
+            <if test="deptId != null and deptId != 0">
+                AND (u.dept_id = #{deptId} OR u.dept_id IN ( SELECT t.dept_id FROM sys_dept t WHERE find_in_set(#{deptId}, ancestors) ))
+            </if>
+        </where>
+
+
     </select>
 </mapper>

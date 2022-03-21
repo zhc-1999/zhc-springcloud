@@ -9,10 +9,7 @@ import com.zhc.cloud.common.constant.Constants;
 import com.zhc.cloud.common.constant.SecurityConstants;
 import com.zhc.cloud.common.constant.UserConstants;
 import com.zhc.cloud.common.enums.UserStatus;
-import com.zhc.cloud.common.utils.IdUtils;
-import com.zhc.cloud.common.utils.JwtUtils;
-import com.zhc.cloud.common.utils.SensitiveInfoUtils;
-import com.zhc.cloud.common.utils.ServletUtils;
+import com.zhc.cloud.common.utils.*;
 import com.zhc.cloud.common.utils.ip.IpUtils;
 import com.zhc.cloud.mybatis.base.BaseEntity;
 import com.zhc.cloud.redis.utils.RedisUtils;
@@ -35,6 +32,7 @@ import com.zhc.cloud.common.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -47,7 +45,7 @@ import java.util.*;
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> implements ISysUserService {
     @Autowired
-    private SysUserMapper sysUserPOMapper;
+    private SysUserMapper sysUserMapper;
     @Autowired
     private SysDeptMapper sysDeptMapper;
     @Autowired
@@ -57,7 +55,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> im
     @Autowired
     private SysMenuMapper sysMenuMapper;
     @Autowired
+    private SysPostMapper sysPostMapper;
+    @Autowired
     private RedisUtils redisUtils;
+    @Autowired
+    private SysUserPostMapper sysUserPostMapper;
+    @Autowired
+    private SysUserRoleMapper sysUserRoleMapper;
 
     /***
     * 查询列表
@@ -65,15 +69,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> im
     */
     @Override
     public Result<?> selectList(SysUserVO sysUserVO) {
+        SecurityUtils.setDataScope();
         LambdaQueryWrapper<SysUserPO> entityWrapper = new LambdaQueryWrapper<SysUserPO>();
         PageHelper.startPage(sysUserVO.getPageNum(), sysUserVO.getPageSize());
         entityWrapper.like(StringUtils.isNotBlank(sysUserVO.getUserName()), SysUserPO::getUserName,sysUserVO.getUserName())
                 .like(StringUtils.isNotBlank(sysUserVO.getPhone()),SysUserPO::getPhone, sysUserVO.getPhone())
                 .eq(StringUtils.isNotBlank(sysUserVO.getStatus()), SysUserPO::getStatus, sysUserVO.getStatus())
                 .gt((sysUserVO.getBeginTime()!=null), BaseEntity::getCreateTime,sysUserVO.getBeginTime())
-                .lt((sysUserVO.getEndTime()!=null), BaseEntity::getCreateTime,sysUserVO.getEndTime())
-                .eq((sysUserVO.getDeptId()!=null&&sysUserVO.getDeptId()!=0),SysUserPO::getDeptId, sysUserVO.getDeptId());
-        List<SysUserPO> sysUserPOS = sysUserPOMapper.selectList(entityWrapper);
+                .lt((sysUserVO.getEndTime()!=null), BaseEntity::getCreateTime,sysUserVO.getEndTime());
+        List<SysUserPO> sysUserPOS = sysUserMapper.selectUserList(entityWrapper,sysUserVO.getDeptId());
         List<UserDTO> userDTOS = new ArrayList<>();
         for (SysUserPO sysUserPO : sysUserPOS) {
             UserDTO userDTO = new UserDTO();
@@ -93,7 +97,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> im
     @Override
     public Result<SysUserPO> selectOne(SysUserPO sysUserPO) {
         LambdaQueryWrapper<SysUserPO> entityWrapper = new LambdaQueryWrapper<SysUserPO>();
-        return Result.success(sysUserPOMapper.selectOne(entityWrapper));
+        return Result.success(sysUserMapper.selectOne(entityWrapper));
     }
     /***
     * 根据id查询
@@ -101,7 +105,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> im
     */
     @Override
     public Result<SysUserPO> selectById(Integer id) {
-        return Result.success(sysUserPOMapper.selectById(id));
+        return Result.success(sysUserMapper.selectById(id));
     }
 
     /**
@@ -127,7 +131,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> im
         }
         LambdaQueryWrapper<SysUserPO> userLambdaQueryWrapper = new LambdaQueryWrapper<>();
         userLambdaQueryWrapper.eq(SysUserPO::getUserName,username);
-        SysUserPO sysUser = sysUserPOMapper.selectOne(userLambdaQueryWrapper);
+        SysUserPO sysUser = sysUserMapper.selectOne(userLambdaQueryWrapper);
         if (sysUser == null){
             return Result.failed("用户名或密码错误");
         }
@@ -155,7 +159,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> im
             return Result.failed("对不起，您的账号：" + username + " 组织机构不存在");
         }
         //获取用户的角色权限
-        List<SysRolePO> sysRoleList = sysRoleMapper.selectByUserId(userId);
+        List<SysRolePO> sysRoleList = sysRoleMapper.selectRoleList(userId);
         if(sysRoleList.size()<=0){
             recordLogininfor(userId, Constants.LOGIN_FAIL, "对不起，您的账号：" + username + " 角色不存在");
             return Result.failed("对不起，您的账号：" + username + " 角色不存在");
@@ -232,6 +236,106 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> im
         jsonObject.put("menuList",menuList);
         jsonObject.put("roleList",roleList);
         return Result.success(jsonObject);
+    }
+
+    @Override
+    public Result<?> getInfo(Long userId) {
+        Map<String, Object> map = new HashMap<>();
+        List<SysRolePO> sysRoleList =null;
+        if(SecurityUtils.isAdmin()){
+            sysRoleList= sysRoleMapper.selectRoleList(null);
+        }else {
+            sysRoleList = sysRoleMapper.selectRoleList(Long.valueOf(SecurityUtils.getUserId()));
+        }
+        if (userId !=null && userId != 0) {
+            SysUserPO sysUser = sysUserMapper.selectById(userId);
+            map = JSON.parseObject(JSON.toJSONString(sysUser), Map.class);
+            map.put("postIds", sysPostMapper.selectPostListByUserId(userId).stream().map(SysPostPO::getPostId).collect(Collectors.toList()));
+            map.put("roleIds", sysRoleMapper.selectRoleList(userId).stream().map(SysRolePO::getRoleId).collect(Collectors.toList()));
+        }
+        map.put("roles", sysRoleList);
+        map.put("posts", sysPostMapper.selectList(new LambdaQueryWrapper<>()));
+        return Result.success(map);
+    }
+
+    @Override
+    public Result<?> insertOrEdit(SysUserVO user) {
+        Long userId = user.getUserId();
+        if (userId== null && userId !=0) {
+            if (StringUtils.isEmpty(user.getUserName()) || sysUserMapper.selectCount(new LambdaQueryWrapper<SysUserPO>().eq(SysUserPO::getUserName, user.getUserName())) > 0) {
+                return Result.failed("新增用户'" + user.getUserName() + "'失败，登录账号已存在");
+            } else if (StringUtils.isEmpty(user.getPhone()) || sysUserMapper.selectCount(new LambdaQueryWrapper<SysUserPO>().eq(SysUserPO::getPhone, user.getPhone())) > 0) {
+                return Result.failed("新增用户'" + user.getUserName() + "'失败，手机号码已存在");
+            } else if (StringUtils.isEmpty(user.getEmail()) || sysUserMapper.selectCount(new LambdaQueryWrapper<SysUserPO>().eq(SysUserPO::getEmail, user.getEmail())) > 0) {
+                return Result.failed("新增用户'" + user.getUserName() + "'失败，邮箱账号已存在");
+            }
+            SysUserPO sysUserPO = new SysUserPO();
+            BeanUtils.copyProperties(user, sysUserPO);
+            sysUserPO.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+            int insert = sysUserMapper.insert(sysUserPO);
+            if (insert > 0) {
+                user.setUserId(sysUserPO.getUserId());
+                insertUserPost(user);
+                insertUserRole(user);
+                return Result.success(insert);
+            }
+        }else {
+            if (StringUtils.isEmpty(user.getPhone()) || sysUserMapper.selectCount(new LambdaQueryWrapper<SysUserPO>().eq(SysUserPO::getPhone, user.getPhone()).ne(SysUserPO::getUserId,userId)) > 0) {
+                return Result.failed("修改用户'" + user.getUserName() + "'失败，手机号码已存在");
+            } else if (StringUtils.isEmpty(user.getEmail()) || sysUserMapper.selectCount(new LambdaQueryWrapper<SysUserPO>().eq(SysUserPO::getEmail, user.getEmail()).ne(SysUserPO::getUserId,userId)) > 0) {
+                return Result.failed("修改用户'" + user.getUserName() + "'失败，邮箱账号已存在");
+            }
+            SysUserPO sysUserPO = sysUserMapper.selectById(userId);
+            BeanUtils.copyProperties(user, sysUserPO);
+            if (sysUserPO == null){
+                return Result.failed("修改用户'" + user.getUserName() + "'失败，用戶不存在");
+            }
+            // 删除用户与角色关联
+            sysUserRoleMapper.delete(new LambdaQueryWrapper<SysUserRolePO>().eq(SysUserRolePO::getUserId,userId));
+            // 新增用户与角色管理
+            insertUserRole(user);
+            // 删除用户与岗位关联
+            sysUserPostMapper.delete(new LambdaQueryWrapper<SysUserPostPO>().eq(SysUserPostPO::getUserId,userId));
+            // 新增用户与岗位管理
+            insertUserPost(user);
+            return Result.success(sysUserMapper.updateById(sysUserPO));
+        }
+        return Result.failed();
+    }
+
+    /**
+     * 新增用户岗位信息
+     *
+     * @param user 用户对象
+     */
+    private void insertUserPost(SysUserVO user) {
+        Long[] posts = user.getPostIds();
+        if (posts.length>0) {
+            // 新增用户与岗位管理
+            for (Long postId : posts) {
+                SysUserPostPO up = new SysUserPostPO();
+                up.setUserId(user.getUserId());
+                up.setPostId(postId);
+                sysUserPostMapper.insert(up);
+            }
+        }
+    }
+    /**
+     * 新增用户角色信息
+     *
+     * @param user 用户对象
+     */
+    public void insertUserRole(SysUserVO user) {
+        Long[] roles = user.getRoleIds();
+        if (roles.length>0) {
+            // 新增用户与角色管理
+            for (Long roleId : roles) {
+                SysUserRolePO ur = new SysUserRolePO();
+                ur.setUserId(user.getUserId());
+                ur.setRoleId(roleId);
+                sysUserRoleMapper.insert(ur);
+            }
+        }
     }
 
 

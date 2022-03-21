@@ -29,16 +29,19 @@
         r.role_id, r.role_name, r.role_key, r.role_sort, r.data_scope, r.menu_check_strictly, r.dept_check_strictly, r.status, r.deleted, r.remark
     </sql>
 
-    <select id="selectByUserId" resultMap="BaseResultMap">
+    <select id="selectRoleList" resultMap="BaseResultMap">
         SELECT
             <include refid="Base_Column_List"/>
         FROM
             sys_role r
         LEFT JOIN sys_user_role ur ON r.role_id = ur.role_id
         <where>
-            ur.user_id = #{userId}
+            <if test="userId!=null and userId != 0">
+                ur.user_id = #{userId}
+            </if>
             and r.status = 0
             and r.deleted = 0
         </where>
+        group BY r.role_id
     </select>
 </mapper>

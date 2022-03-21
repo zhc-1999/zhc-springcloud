@@ -1,5 +1,6 @@
 package com.zhc.cloud.common.utils;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zhc.cloud.common.constant.SecurityConstants;
 
@@ -12,13 +13,13 @@ public class SecurityUtils {
 
     protected static final ThreadLocal<String> threadLocal = new ThreadLocal();
     /**
-     * 权限标识
+     * 设置权限标识
      */
     public static void setDataScope(){
         threadLocal.set(SecurityConstants.DATA_SCOPE);
     }
     /**
-     * 获取权限标识
+     * 获取权限标识 并清除
      */
     public static String getDataScope(){
         String s = threadLocal.get();
@@ -50,6 +51,23 @@ public class SecurityUtils {
     public static JSONObject getLoginUser() {
         String loginUser = ServletUtils.getHeader(SecurityConstants.LOGIN_USER);
         return JSONObject.parseObject(loginUser);
+    }
+
+    /**
+     * 获取登录用户信息
+     */
+    public static Boolean isAdmin() {
+        String loginUser = ServletUtils.getHeader(SecurityConstants.LOGIN_USER);
+        JSONObject jsonObject = JSONObject.parseObject(loginUser);
+        JSONArray roles = jsonObject.getJSONArray("roles");
+        for (Object role : roles) {
+            JSONObject roleJson = JSONObject.parseObject(role.toString());
+            String roleKey = roleJson.getString("roleKey");
+            if (roleKey.equals("admin")){
+                return true;
+            }
+        }
+        return false;
     }
 
 

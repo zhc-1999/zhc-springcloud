@@ -74,7 +74,7 @@ public class MyDataPermissionHandler  implements DataPermissionHandler {
                 sqlString = new StringBuilder();
                 break;
             } else if (DATA_SCOPE_CUSTOM.equals(dataScopeNum)) {
-                sqlString.append(" OR `sys_dept`.dept_id IN ( SELECT dept_id FROM `sys_role_dept` WHERE role_id = ")
+                sqlString.append(" OR `sys_dept`.dept_id IN ( SELECT dept_id FROM `sys_role_dept` WHERE role_id = '")
                         .append(roleId)
                         .append("' ) ");
             } else if (DATA_SCOPE_DEPT.equals(dataScopeNum)) {

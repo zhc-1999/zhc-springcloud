@@ -18,7 +18,7 @@ public class BaseEntity implements Serializable {
     /**
      * 创建者
      */
-    @TableField(value = "`create_id`")
+    @TableField(value = "`create_id`",fill = FieldFill.INSERT)
     private Integer createId;
 
 
@@ -31,7 +31,7 @@ public class BaseEntity implements Serializable {
     /**
      * 更新者
      */
-    @TableField(value = "`update_id`")
+    @TableField(value = "`update_id`",fill = FieldFill.INSERT_UPDATE)
     private Integer updateId;
 
 

@@ -81,4 +81,21 @@ public class SysUserController {
     public Result<?> list(SysUserVO user) {
         return sysUserService.selectList(user);
     }
+
+    /**
+     * 添加或修改 页面信息
+     * @return
+     */
+    @GetMapping(value = { "/", "/{userId}" })
+    public Result<?> getInfo(@PathVariable(value = "userId", required = false) Long userId){
+        return sysUserService.getInfo(userId);
+    }
+    /**
+     * 添加或修改用戶
+     * @return
+     */
+    @PostMapping(value = "/insertOrEdit" )
+    public Result<?> insertOrEdit(@RequestBody SysUserVO user){
+        return sysUserService.insertOrEdit(user);
+    }
 }
