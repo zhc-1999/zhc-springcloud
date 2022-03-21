@@ -29,8 +29,6 @@ public class TestDataServiceImpl extends ServiceImpl<TestDataMapper, TestDataPO>
     public String selectPage() {
         TestDataPO testDataPO1 = new TestDataPO();
         testDataPO1.setName("zhc");
-        testDataPO1.setCreateId(1);
-        testDataPO1.setUpdateId(1);
         testDataMapper.insert(testDataPO1);
 //        PageHelper.startPage(1, 1);
         List<TestDataPO> testDatumPOS = testDataMapper.selectList(new LambdaQueryWrapper<>());

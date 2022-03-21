@@ -1,10 +1,10 @@
 package com.zhc.cloud.mybatis.plugins;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import com.zhc.cloud.common.utils.SecurityUtils;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -17,7 +17,10 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
+
         Date date = new Date();
+        this.strictInsertFill(metaObject, "createId", String.class, SecurityUtils.getUserId());
+        this.strictInsertFill(metaObject, "updateId", String.class, SecurityUtils.getUserId());
         this.strictInsertFill(metaObject, "createTime", Date.class, date);
         this.strictInsertFill(metaObject, "updateTime", Date.class, date);
         // 起始版本 3.3.0(推荐使用)
@@ -27,6 +30,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     public void updateFill(MetaObject metaObject) {
         Date date = new Date();
         this.strictUpdateFill(metaObject, "updateTime", Date.class, date);
+        this.strictUpdateFill(metaObject, "updateId", String.class, SecurityUtils.getUserId());
         // 起始版本 3.3.0(推荐)
     }
 }

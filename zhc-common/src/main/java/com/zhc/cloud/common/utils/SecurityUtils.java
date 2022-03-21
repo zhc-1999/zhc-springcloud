@@ -10,6 +10,21 @@ import com.zhc.cloud.common.constant.SecurityConstants;
  */
 public class SecurityUtils {
 
+    protected static final ThreadLocal<String> threadLocal = new ThreadLocal();
+    /**
+     * 权限标识
+     */
+    public static void setDataScope(){
+        threadLocal.set(SecurityConstants.DATA_SCOPE);
+    }
+    /**
+     * 获取权限标识
+     */
+    public static String getDataScope(){
+        String s = threadLocal.get();
+        threadLocal.remove();
+        return s;
+    }
     /**
      * 获取用户ID
      */

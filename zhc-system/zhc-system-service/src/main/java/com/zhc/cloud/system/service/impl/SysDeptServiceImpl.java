@@ -13,8 +13,7 @@ import org.springframework.stereotype.Service;
 import com.zhc.cloud.common.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -59,14 +58,24 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDeptPO> im
 
     @Override
     public Result<?> treeselect(SysDeptVO dept) {
+        SecurityUtils.setDataScope();
         LambdaQueryWrapper<SysDeptPO> entityWrapper = new LambdaQueryWrapper<SysDeptPO>();
-        entityWrapper.eq(StringUtils.isNotBlank(SecurityUtils.getDeptId()),SysDeptPO::getDeptId,dept.getDeptId())
+        entityWrapper.eq((dept.getDeptId()!=null && dept.getDeptId() !=0),SysDeptPO::getDeptId,dept.getDeptId())
                 .eq((dept.getParentId()!=null &&dept.getParentId()!=0),SysDeptPO::getParentId,dept.getDeptId())
                 .like(StringUtils.isNotBlank(dept.getDeptName()),SysDeptPO::getDeptName,dept.getDeptName())
                 .eq(StringUtils.isNotBlank(dept.getStatus()),SysDeptPO::getStatus,dept.getStatus())
                 .orderByAsc(SysDeptPO::getParentId,SysDeptPO::getOrderNum);
         List<SysDeptPO> sysDeptPO = sysDeptPOMapper.selectList(entityWrapper);
-        return Result.success(buildTree(sysDeptPO,0L));
+        if(sysDeptPO == null){
+            return Result.success();
+        }
+        sysDeptPO.sort(Comparator.comparing(SysDeptPO::getParentId));
+        List<Long> tempList = new ArrayList<Long>();
+        for (SysDeptPO deptPO : sysDeptPO) {
+            tempList.add(deptPO.getParentId());
+        }
+        Long minParentId = Collections.min(tempList);
+        return Result.success(buildTree(sysDeptPO,minParentId));
     }
 
     /***
@@ -75,7 +84,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDeptPO> im
      * @param parentId
      * @return
      */
-    public List<TreeSelectDTO> buildTree(List<SysDeptPO> sysDeptPO, Long parentId){
+    public List<TreeSelectDTO> buildTree(List<SysDeptPO> sysDeptPO,Long parentId){
         List<TreeSelectDTO> result = sysDeptPO
                 .stream()
                 .filter(node -> parentId.equals(node.getParentId()))
@@ -89,7 +98,5 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDeptPO> im
                 .collect(Collectors.toList());
         return result;
     }
-
-
 
 }

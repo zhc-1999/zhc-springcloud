@@ -48,4 +48,8 @@ public class SecurityConstants {
      * 登录用户
      */
     public static final String LOGIN_USER = "login-user";
+    /**
+     * 数据权限过滤关键字
+     */
+    public static final String DATA_SCOPE = "dataScope";
 }
