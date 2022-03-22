@@ -8,35 +8,21 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>zhc-system-domain</artifactId>
-
+    <artifactId>zhc-system-common</artifactId>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
     <dependencies>
-        <dependency>
-            <groupId>com.zhc.cloud</groupId>
-            <artifactId>zhc-db-nacos-mybatis-plus-starter</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>1.5.21</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>com.zhc.cloud</groupId>
-            <artifactId>zhc-system-common</artifactId>
+            <artifactId>zhc-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-
     </dependencies>
-
 </project>

@@ -22,9 +22,7 @@ public class SecurityUtils {
      * 获取权限标识 并清除
      */
     public static String getDataScope(){
-        String s = threadLocal.get();
-        threadLocal.remove();
-        return s;
+        return threadLocal.get();
     }
     /**
      * 获取用户ID

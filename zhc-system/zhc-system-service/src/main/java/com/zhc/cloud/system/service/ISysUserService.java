@@ -1,12 +1,10 @@
 package com.zhc.cloud.system.service;
 
-import com.zhc.cloud.system.api.entity.LoginVO;
-import com.zhc.cloud.system.api.entity.SysUserVO;
+import com.zhc.cloud.system.common.entity.LoginVO;
+import com.zhc.cloud.system.common.entity.SysUserVO;
 import com.zhc.cloud.system.domain.mysql.SysUserPO;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhc.cloud.common.result.Result;
-
-import java.util.List;
 
 /**
  * <p>

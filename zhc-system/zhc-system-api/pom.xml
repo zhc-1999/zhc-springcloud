@@ -22,7 +22,7 @@
         </dependency>
         <dependency>
             <groupId>com.zhc.cloud</groupId>
-            <artifactId>zhc-common</artifactId>
+            <artifactId>zhc-system-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

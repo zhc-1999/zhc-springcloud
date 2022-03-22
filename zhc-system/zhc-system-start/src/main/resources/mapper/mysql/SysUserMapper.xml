@@ -72,8 +72,23 @@
         from sys_user u
         left join sys_dept  on  u.dept_id =  `sys_dept`.dept_id
         <where>
-            <if test="ew!=null and ew.sqlSegment!=null and ew.sqlSegment != ''">
-                ${ew.sqlSegment}
+            <if test="userId != null and userId != 0">
+                AND u.user_id = #{userId}
+            </if>
+            <if test="userName != null and userName != ''">
+                AND u.user_name like concat('%', #{userName}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                AND u.status = #{status}
+            </if>
+            <if test="phone != null and phone != ''">
+                AND u.phone like concat('%', #{phone}, '%')
+            </if>
+            <if test="beginTime != null and beginTime != ''"><!-- 开始时间检索 -->
+                AND date_format(u.create_time,'%y%m%d') &gt;= date_format(#{beginTime},'%y%m%d')
+            </if>
+            <if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
+                AND date_format(u.create_time,'%y%m%d') &lt;= date_format(#{endTime},'%y%m%d')
             </if>
             <if test="deptId != null and deptId != 0">
                 AND (u.dept_id = #{deptId} OR u.dept_id IN ( SELECT t.dept_id FROM sys_dept t WHERE find_in_set(#{deptId}, ancestors) ))

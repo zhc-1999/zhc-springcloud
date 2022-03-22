@@ -6,7 +6,7 @@ import com.zhc.cloud.business.domain.mysql.TestDataPO;
 import com.zhc.cloud.business.domain.mapper.TestDataMapper;
 import com.zhc.cloud.common.result.Result;
 import com.zhc.cloud.system.api.client.FeignTestClient;
-import com.zhc.cloud.system.api.entity.TestDataVO;
+import com.zhc.cloud.system.common.entity.TestDataVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.zhc.cloud.business.service.TestDataService;

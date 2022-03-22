@@ -1,4 +1,4 @@
-package com.zhc.cloud.system.api.entity;
+package com.zhc.cloud.system.common.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

@@ -4,8 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.zhc.cloud.common.constant.SecurityConstants;
 import com.zhc.cloud.common.result.Result;
 import com.zhc.cloud.common.utils.ServletUtils;
-import com.zhc.cloud.system.api.dto.LoginUserDTO;
-import com.zhc.cloud.system.api.entity.TestDataVO;
+import com.zhc.cloud.system.common.dto.LoginUserDTO;
+import com.zhc.cloud.system.common.entity.TestDataVO;
 import com.zhc.cloud.system.service.TestDataService;
 import com.zhc.cloud.system.service.TestService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
-import java.util.Map;
 
 /**
  * @author zhc

@@ -13,12 +13,9 @@ import com.zhc.cloud.common.utils.*;
 import com.zhc.cloud.common.utils.ip.IpUtils;
 import com.zhc.cloud.mybatis.base.BaseEntity;
 import com.zhc.cloud.redis.utils.RedisUtils;
-import com.zhc.cloud.system.api.dto.LoginUserDTO;
-import com.zhc.cloud.system.api.dto.SysMenuDTO;
-import com.zhc.cloud.system.api.dto.SysRoleDTO;
-import com.zhc.cloud.system.api.dto.UserDTO;
-import com.zhc.cloud.system.api.entity.LoginVO;
-import com.zhc.cloud.system.api.entity.SysUserVO;
+import com.zhc.cloud.system.common.dto.*;
+import com.zhc.cloud.system.common.entity.LoginVO;
+import com.zhc.cloud.system.common.entity.SysUserVO;
 import com.zhc.cloud.system.domain.mapper.*;
 import com.zhc.cloud.system.domain.mysql.*;
 import com.zhc.cloud.system.service.ISysUserService;
@@ -70,14 +67,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> im
     @Override
     public Result<?> selectList(SysUserVO sysUserVO) {
         SecurityUtils.setDataScope();
-        LambdaQueryWrapper<SysUserPO> entityWrapper = new LambdaQueryWrapper<SysUserPO>();
         PageHelper.startPage(sysUserVO.getPageNum(), sysUserVO.getPageSize());
-        entityWrapper.like(StringUtils.isNotBlank(sysUserVO.getUserName()), SysUserPO::getUserName,sysUserVO.getUserName())
-                .like(StringUtils.isNotBlank(sysUserVO.getPhone()),SysUserPO::getPhone, sysUserVO.getPhone())
-                .eq(StringUtils.isNotBlank(sysUserVO.getStatus()), SysUserPO::getStatus, sysUserVO.getStatus())
-                .gt((sysUserVO.getBeginTime()!=null), BaseEntity::getCreateTime,sysUserVO.getBeginTime())
-                .lt((sysUserVO.getEndTime()!=null), BaseEntity::getCreateTime,sysUserVO.getEndTime());
-        List<SysUserPO> sysUserPOS = sysUserMapper.selectUserList(entityWrapper,sysUserVO.getDeptId());
+        SysUserDTO sysUserDTO = new SysUserDTO();
+        BeanUtils.copyProperties(sysUserVO,sysUserDTO);
+        List<SysUserPO> sysUserPOS = sysUserMapper.selectUserList(sysUserDTO);
         List<UserDTO> userDTOS = new ArrayList<>();
         for (SysUserPO sysUserPO : sysUserPOS) {
             UserDTO userDTO = new UserDTO();

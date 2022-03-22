@@ -1,4 +1,4 @@
-package com.zhc.cloud.system.api.dto;
+package com.zhc.cloud.system.common.dto;
 
 import lombok.Data;
 

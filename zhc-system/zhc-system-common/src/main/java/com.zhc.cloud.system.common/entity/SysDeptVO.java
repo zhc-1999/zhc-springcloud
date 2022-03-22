@@ -1,4 +1,4 @@
-package com.zhc.cloud.system.api.entity;
+package com.zhc.cloud.system.common.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

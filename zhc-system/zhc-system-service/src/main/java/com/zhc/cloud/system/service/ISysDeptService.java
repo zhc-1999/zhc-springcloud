@@ -1,6 +1,6 @@
 package com.zhc.cloud.system.service;
 
-import com.zhc.cloud.system.api.entity.SysDeptVO;
+import com.zhc.cloud.system.common.entity.SysDeptVO;
 import com.zhc.cloud.system.domain.mysql.SysDeptPO;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhc.cloud.common.result.Result;

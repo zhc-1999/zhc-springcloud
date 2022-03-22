@@ -2,8 +2,8 @@ package com.zhc.cloud.system.service.impl;
 
 import com.zhc.cloud.common.constant.Constants;
 import com.zhc.cloud.common.constant.UserConstants;
-import com.zhc.cloud.system.api.entity.MetaVo;
-import com.zhc.cloud.system.api.entity.RouterVo;
+import com.zhc.cloud.system.common.entity.MetaVo;
+import com.zhc.cloud.system.common.entity.RouterVo;
 import com.zhc.cloud.system.domain.mysql.SysMenuPO;
 import com.zhc.cloud.system.domain.mapper.SysMenuMapper;
 import com.zhc.cloud.system.service.ISysMenuService;

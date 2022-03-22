@@ -2,7 +2,7 @@ package com.zhc.cloud.system.api.fallback;
 
 import com.zhc.cloud.common.result.Result;
 import com.zhc.cloud.system.api.client.FeignTestClient;
-import com.zhc.cloud.system.api.entity.TestDataVO;
+import com.zhc.cloud.system.common.entity.TestDataVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

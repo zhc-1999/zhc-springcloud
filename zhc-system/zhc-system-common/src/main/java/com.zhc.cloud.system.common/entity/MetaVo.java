@@ -1,4 +1,4 @@
-package com.zhc.cloud.system.api.entity;
+package com.zhc.cloud.system.common.entity;
 
 
 import com.zhc.cloud.common.constant.Constants;

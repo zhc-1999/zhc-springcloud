@@ -1,18 +1,16 @@
-package com.zhc.cloud.system.api.entity;
+package com.zhc.cloud.system.common.dto;
 
-import com.zhc.cloud.common.page.PageVO;
 import lombok.Data;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author zhc
- * @description 前端用户列表参数
+ * @description 前端用户
  * @date 2022-03-16 15:42
  */
 @Data
-public class SysUserVO extends PageVO {
+public class SysUserDTO {
 
     private Long userId;
     private String userName;

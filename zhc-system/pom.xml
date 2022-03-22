@@ -18,6 +18,7 @@
         <module>zhc-system-service</module>
         <module>zhc-system-domain</module>
         <module>zhc-system-start</module>
+        <module>zhc-system-common</module>
     </modules>
 
 

@@ -1,8 +1,8 @@
 package com.zhc.cloud.system.service.impl;
 
 import com.zhc.cloud.common.utils.SecurityUtils;
-import com.zhc.cloud.system.api.dto.TreeSelectDTO;
-import com.zhc.cloud.system.api.entity.SysDeptVO;
+import com.zhc.cloud.system.common.dto.TreeSelectDTO;
+import com.zhc.cloud.system.common.entity.SysDeptVO;
 import com.zhc.cloud.system.domain.mysql.SysDeptPO;
 import com.zhc.cloud.system.domain.mapper.SysDeptMapper;
 import com.zhc.cloud.system.service.ISysDeptService;

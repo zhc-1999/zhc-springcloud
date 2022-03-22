@@ -7,6 +7,7 @@ import com.zhc.cloud.common.constant.SecurityConstants;
 import com.zhc.cloud.common.utils.SecurityUtils;
 import lombok.SneakyThrows;
 import net.sf.jsqlparser.expression.Expression;
+import net.sf.jsqlparser.expression.HexValue;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import org.apache.commons.lang3.StringUtils;
 
@@ -91,9 +92,12 @@ public class MyDataPermissionHandler  implements DataPermissionHandler {
             }
         }
         if (StringUtils.isNotBlank(sqlString.toString())) {
+            if (where == null){
+                where = new HexValue(" 1 = 1 ");
+            }
             sqlString.insert(0," AND (");
             sqlString.append(")");
-            sqlString = sqlString.delete(7,9);
+            sqlString.delete(7, 9);
             return CCJSqlParserUtil.parseCondExpression(where + sqlString.toString());
         }else {
             return where;
