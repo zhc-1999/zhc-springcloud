@@ -21,6 +21,7 @@ import com.zhc.cloud.system.domain.mysql.*;
 import com.zhc.cloud.system.service.ISysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -254,7 +255,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> im
     @Override
     public Result<?> insertOrEdit(SysUserVO user) {
         Long userId = user.getUserId();
-        if (userId== null && userId !=0) {
+        if (userId== null || userId == 0) {
             if (StringUtils.isEmpty(user.getUserName()) || sysUserMapper.selectCount(new LambdaQueryWrapper<SysUserPO>().eq(SysUserPO::getUserName, user.getUserName())) > 0) {
                 return Result.failed("新增用户'" + user.getUserName() + "'失败，登录账号已存在");
             } else if (StringUtils.isEmpty(user.getPhone()) || sysUserMapper.selectCount(new LambdaQueryWrapper<SysUserPO>().eq(SysUserPO::getPhone, user.getPhone())) > 0) {
@@ -294,6 +295,21 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> im
             return Result.success(sysUserMapper.updateById(sysUserPO));
         }
         return Result.failed();
+    }
+
+    @Override
+    public Result<?> delete(Long[] userIds) {
+        if (ArrayUtils.contains(userIds, SecurityUtils.getUserId())) {
+            return Result.failed("当前用户不能删除");
+        }
+        // 删除用户与角色关联
+        for (Long userId : userIds) {
+            sysUserRoleMapper.delete(new LambdaQueryWrapper<SysUserRolePO>().in(SysUserRolePO::getUserId,userId));
+            // 删除用户与岗位关联
+            sysUserPostMapper.delete(new LambdaQueryWrapper<SysUserPostPO>().in(SysUserPostPO::getUserId,userId));
+        }
+        sysUserMapper.deleteBatchIds(Arrays.asList(userIds));
+        return Result.success();
     }
 
     /**

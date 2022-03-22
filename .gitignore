@@ -71,3 +71,6 @@ logs/
 
 # gitignore
 .gitignore
+
+# JRebel
+rebel.xml

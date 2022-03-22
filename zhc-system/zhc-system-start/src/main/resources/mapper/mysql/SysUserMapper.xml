@@ -72,6 +72,7 @@
         from sys_user u
         left join sys_dept  on  u.dept_id =  `sys_dept`.dept_id
         <where>
+            u.deleted = 0
             <if test="userId != null and userId != 0">
                 AND u.user_id = #{userId}
             </if>

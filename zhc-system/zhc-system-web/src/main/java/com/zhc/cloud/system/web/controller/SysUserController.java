@@ -77,4 +77,8 @@ public class SysUserController {
     public Result<?> insertOrEdit(@RequestBody SysUserVO user){
         return sysUserService.insertOrEdit(user);
     }
+    @DeleteMapping("/{userIds}")
+    public Result<?> delete(@PathVariable Long[] userIds) {
+        return sysUserService.delete(userIds);
+    }
 }

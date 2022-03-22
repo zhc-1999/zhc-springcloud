@@ -49,4 +49,6 @@ public interface ISysUserService extends IService<SysUserPO> {
     Result<?> getInfo(Long userId);
 
     Result<?> insertOrEdit(SysUserVO user);
+
+    Result<?> delete(Long[] userIds);
 }
