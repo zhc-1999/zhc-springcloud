@@ -1,5 +1,9 @@
 package com.zhc.cloud.system.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.io.IoUtil;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
@@ -29,6 +33,10 @@ import org.springframework.stereotype.Service;
 import com.zhc.cloud.common.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -72,6 +80,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> im
         SysUserDTO sysUserDTO = new SysUserDTO();
         BeanUtils.copyProperties(sysUserVO,sysUserDTO);
         List<SysUserPO> sysUserPOS = sysUserMapper.selectUserList(sysUserDTO);
+        SecurityUtils.deleteDataScope();
         List<UserDTO> userDTOS = new ArrayList<>();
         for (SysUserPO sysUserPO : sysUserPOS) {
             UserDTO userDTO = new UserDTO();
@@ -310,6 +319,77 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> im
         }
         sysUserMapper.deleteBatchIds(Arrays.asList(userIds));
         return Result.success();
+    }
+
+    @Override
+    public void export(HttpServletResponse response, SysUserVO user) {
+        SecurityUtils.setDataScope();
+        SysUserDTO sysUserDTO = new SysUserDTO();
+        BeanUtils.copyProperties(user,sysUserDTO);
+        List<SysUserPO> sysUserPOS = sysUserMapper.selectUserList(sysUserDTO);
+        SecurityUtils.deleteDataScope();
+        List<UserDTO> userDTOS = new ArrayList<>();
+        for (SysUserPO sysUserPO : sysUserPOS) {
+            UserDTO userDTO = new UserDTO();
+            BeanUtils.copyProperties(sysUserPO,userDTO);
+            SysDeptPO sysDeptPO = sysDeptMapper.selectById(sysUserPO.getDeptId());
+            switch (sysUserPO.getSex()) {
+                case "0":
+                    userDTO.setSex("男");
+                    break;
+                case "1":
+                    userDTO.setSex("女");
+                    break;
+                default:
+                    userDTO.setSex("未知");
+            }
+            if ("0".equals(sysUserPO.getStatus())) {
+                userDTO.setStatus("正常");
+            } else {
+                userDTO.setStatus("停用");
+            }
+            userDTO.setDeptName(sysDeptPO.getDeptName());
+            userDTO.setPhone(SensitiveInfoUtils.mobilePhone(userDTO.getPhone()));
+            userDTOS.add(userDTO);
+        }
+        try {
+            // 通过工具类创建writer，默认创建xls格式
+            ExcelWriter writer = ExcelUtil.getWriter();
+            //自定义标题别名
+            writer.addHeaderAlias("userId", "用户ID");
+            writer.addHeaderAlias("deptName", "组织名称");
+            writer.addHeaderAlias("userName", "用户账号");
+            writer.addHeaderAlias("nickName", "用户昵称");
+            writer.addHeaderAlias("email", "用户邮箱");
+            writer.addHeaderAlias("phone", "手机号码");
+            writer.addHeaderAlias("sex", "用户性别");
+            writer.addHeaderAlias("status", "帐号状态");
+            writer.addHeaderAlias("createTime", "创建时间");
+            //只导出设置别名的字段
+            writer.setOnlyAlias(true);
+            // 一次性写出内容，使用默认样式，强制输出标题
+            writer.write(userDTOS, true);
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setCharacterEncoding("utf-8");
+            ServletOutputStream out=response.getOutputStream();
+
+            writer.flush(out, true);
+            writer.close();
+            IoUtil.close(out);
+        }catch(Exception e){
+            log.error("导出异常",e);
+        }
+    }
+
+    @Override
+    public Result<?> resetPwd(SysUserVO user) {
+        SysUserPO sysUserPO = sysUserMapper.selectById(user.getUserId());
+        if (sysUserPO == null) {
+            return Result.failed("用户不存在");
+        }
+        sysUserPO.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        int i = sysUserMapper.updateById(sysUserPO);
+        return Result.success(i);
     }
 
     /**

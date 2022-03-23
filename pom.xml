@@ -206,10 +206,17 @@
                 <artifactId>seata-spring-boot-starter</artifactId>
                 <version>1.4.0</version>
             </dependency>
+            <!--Hutool工具包-->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>4.5.11</version>
+            </dependency>
+            <!--Hutool工具ExcelUtil依赖这个 https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>4.1.0</version>
             </dependency>
 
             <!--Nepxion Discovery -->

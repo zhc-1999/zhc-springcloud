@@ -3,12 +3,18 @@ package com.zhc.cloud.system.web.controller;
 
 import com.zhc.cloud.common.result.Result;
 import com.zhc.cloud.system.common.dto.LoginUserDTO;
+import com.zhc.cloud.system.common.dto.SysUserDTO;
 import com.zhc.cloud.system.common.entity.LoginVO;
 import com.zhc.cloud.system.common.entity.SysUserVO;
 import com.zhc.cloud.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import lombok.extern.slf4j.Slf4j;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.List;
 
 /**
  * <p>
@@ -77,8 +83,31 @@ public class SysUserController {
     public Result<?> insertOrEdit(@RequestBody SysUserVO user){
         return sysUserService.insertOrEdit(user);
     }
+    /**
+     * 删除用戶
+     * @return
+     */
     @DeleteMapping("/{userIds}")
     public Result<?> delete(@PathVariable Long[] userIds) {
         return sysUserService.delete(userIds);
+    }
+
+    /**
+     * 导出用戶列表
+     * @return
+     */
+    @PostMapping("/export")
+    public void export(SysUserVO user,HttpServletResponse response) {
+        sysUserService.export(response,user);
+    }
+
+    /***
+     * 重置密码
+     * @param user
+     * @return
+     */
+    @PutMapping("/resetPwd")
+    public Result<?> resetPwd(@RequestBody SysUserVO user){
+        return sysUserService.resetPwd(user);
     }
 }

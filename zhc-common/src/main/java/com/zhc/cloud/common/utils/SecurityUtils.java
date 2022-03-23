@@ -25,6 +25,12 @@ public class SecurityUtils {
         return threadLocal.get();
     }
     /**
+     * 获取权限标识 并清除
+     */
+    public static void deleteDataScope(){
+        threadLocal.remove();
+    }
+    /**
      * 获取用户ID
      */
     public static String getUserId(){
