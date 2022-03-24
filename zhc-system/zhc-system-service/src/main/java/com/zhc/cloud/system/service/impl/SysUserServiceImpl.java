@@ -75,12 +75,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> im
     */
     @Override
     public Result<?> selectList(SysUserVO sysUserVO) {
-        SecurityUtils.setDataScope();
+        SecurityUtils.startDataScope();
         PageHelper.startPage(sysUserVO.getPageNum(), sysUserVO.getPageSize());
         SysUserDTO sysUserDTO = new SysUserDTO();
         BeanUtils.copyProperties(sysUserVO,sysUserDTO);
         List<SysUserPO> sysUserPOS = sysUserMapper.selectUserList(sysUserDTO);
-        SecurityUtils.deleteDataScope();
         List<UserDTO> userDTOS = new ArrayList<>();
         for (SysUserPO sysUserPO : sysUserPOS) {
             UserDTO userDTO = new UserDTO();
@@ -323,11 +322,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> im
 
     @Override
     public void export(HttpServletResponse response, SysUserVO user) {
-        SecurityUtils.setDataScope();
+        SecurityUtils.startDataScope();
         SysUserDTO sysUserDTO = new SysUserDTO();
         BeanUtils.copyProperties(user,sysUserDTO);
         List<SysUserPO> sysUserPOS = sysUserMapper.selectUserList(sysUserDTO);
-        SecurityUtils.deleteDataScope();
         List<UserDTO> userDTOS = new ArrayList<>();
         for (SysUserPO sysUserPO : sysUserPOS) {
             UserDTO userDTO = new UserDTO();

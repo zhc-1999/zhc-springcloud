@@ -3,6 +3,7 @@ package com.zhc.cloud.mybatis.plugins;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.handler.DataPermissionHandler;
+import com.github.pagehelper.page.PageMethod;
 import com.zhc.cloud.common.constant.SecurityConstants;
 import com.zhc.cloud.common.utils.SecurityUtils;
 import lombok.SneakyThrows;
@@ -98,10 +99,15 @@ public class MyDataPermissionHandler  implements DataPermissionHandler {
             sqlString.insert(0," AND (");
             sqlString.append(")");
             sqlString.delete(7, 9);
+            //判断是不是分页， 分页完成之后 清除权限标识
+            if (PageMethod.getLocalPage() == null){
+                SecurityUtils.removeDataScope();
+            }
             return CCJSqlParserUtil.parseCondExpression(where + sqlString.toString());
         }else {
             return where;
         }
+
     }
 
 

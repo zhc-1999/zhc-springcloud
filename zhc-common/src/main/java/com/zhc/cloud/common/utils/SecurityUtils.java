@@ -15,19 +15,19 @@ public class SecurityUtils {
     /**
      * 设置权限标识
      */
-    public static void setDataScope(){
+    public static void startDataScope(){
         threadLocal.set(SecurityConstants.DATA_SCOPE);
     }
     /**
-     * 获取权限标识 并清除
+     * 获取权限标识
      */
     public static String getDataScope(){
         return threadLocal.get();
     }
     /**
-     * 获取权限标识 并清除
+     * 清除权限标识
      */
-    public static void deleteDataScope(){
+    public static void removeDataScope(){
         threadLocal.remove();
     }
     /**

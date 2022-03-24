@@ -58,7 +58,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDeptPO> im
 
     @Override
     public Result<?> treeselect(SysDeptVO dept) {
-        SecurityUtils.setDataScope();
+        SecurityUtils.startDataScope();
         LambdaQueryWrapper<SysDeptPO> entityWrapper = new LambdaQueryWrapper<SysDeptPO>();
         entityWrapper.eq((dept.getDeptId()!=null && dept.getDeptId() !=0),SysDeptPO::getDeptId,dept.getDeptId())
                 .eq((dept.getParentId()!=null &&dept.getParentId()!=0),SysDeptPO::getParentId,dept.getDeptId())
