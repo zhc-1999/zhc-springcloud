@@ -17,10 +17,9 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-
         Date date = new Date();
-        this.strictInsertFill(metaObject, "createId", String.class, SecurityUtils.getUserId());
-        this.strictInsertFill(metaObject, "updateId", String.class, SecurityUtils.getUserId());
+        this.strictInsertFill(metaObject, "createId", Integer.class, Integer.valueOf(SecurityUtils.getUserId()));
+        this.strictInsertFill(metaObject, "updateId", Integer.class, Integer.valueOf(SecurityUtils.getUserId()));
         this.strictInsertFill(metaObject, "createTime", Date.class, date);
         this.strictInsertFill(metaObject, "updateTime", Date.class, date);
         // 起始版本 3.3.0(推荐使用)
@@ -30,7 +29,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     public void updateFill(MetaObject metaObject) {
         Date date = new Date();
         this.strictUpdateFill(metaObject, "updateTime", Date.class, date);
-        this.strictUpdateFill(metaObject, "updateId", String.class, SecurityUtils.getUserId());
+        this.strictUpdateFill(metaObject, "updateId", Integer.class, Integer.valueOf(SecurityUtils.getUserId()));
         // 起始版本 3.3.0(推荐)
     }
 }
