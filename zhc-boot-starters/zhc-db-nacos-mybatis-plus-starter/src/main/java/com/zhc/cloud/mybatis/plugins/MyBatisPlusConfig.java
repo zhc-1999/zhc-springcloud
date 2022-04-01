@@ -29,13 +29,6 @@ public class MyBatisPlusConfig {
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        // 数据权限插件
-//        DataPermissionInterceptor dataPermissionInterceptor=new DataPermissionInterceptor();
-//        MyDataPermissionHandler myDataPermissionHandler=new MyDataPermissionHandler();
-//        // 添加自定义的数据权限处理器
-//        dataPermissionInterceptor.setDataPermissionHandler(myDataPermissionHandler);
-//        interceptor.addInnerInterceptor(dataPermissionInterceptor);
-        interceptor.addInnerInterceptor(new DataPermissionInterceptor(new MyDataPermissionHandler()));
         //分页插件
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
         return interceptor;
