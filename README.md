@@ -8,21 +8,21 @@ spring Cloud alibaba项目搭建，无具体业务。
 
 ## 3. 功能介绍
 * **分布式系统基础支撑**
-    * nacos配置中心
-    * nacos注册中心
-    * 全链路蓝绿灰度发布容灾: discovery
-    * 网关动态路由: discovery
-    * 服务调用：openfeign
-    * 服务熔断和降级：Hystrix
-    * spring-cloud
-    * spring-cloud-alibaba
-    * API网关：spring-cloud-alibaba-gateway
-    * 持久层：mybits-plus
-    * nosql：redis
-    * 分布式锁：redisson
-    * 分布式事务：seata
-    * Sentinel 实时监控
-    * 生成代码 mybatis-plus
+  * 配置中心: nacos
+  * 注册中心: nacos
+  * 数据库: mysql
+  * 全链路蓝绿灰度发布容灾: discovery
+  * 网关动态路由: discovery
+  * 服务调用：openfeign
+  * 服务熔断和降级：Hystrix
+  * spring-cloud-alibaba
+  * API网关：spring-cloud-alibaba-gateway
+  * 持久层：mybits-plus
+  * nosql：redis
+  * 分布式锁：redisson
+  * 分布式事务：seata
+  * 实时监控: Sentinel
+  * 生成代码: mybatis-plus
 
 ## 4. 模块说明
 ```lua
