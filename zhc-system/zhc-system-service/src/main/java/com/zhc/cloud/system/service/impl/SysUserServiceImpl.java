@@ -469,6 +469,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserPO> im
             loginLog.setStatus("0");
         }
         loginLog.setAccessTime(new Date());
+        loginLog.setCreateId(userId.intValue());
+        loginLog.setUpdateId(userId.intValue());
         sysLoginLogMapper.insert(loginLog);
     }
 

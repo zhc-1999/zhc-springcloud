@@ -27,7 +27,7 @@ public class SecurityUtils {
     /**
      * 清除权限标识
      */
-    public static void removeDataScope(){
+    public static void cleanDataScope(){
         threadLocal.remove();
     }
     /**
